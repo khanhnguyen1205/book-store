@@ -1,0 +1,65 @@
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .lg-wrap { font-family: sans-serif; background: #fff; color: #111; }
+  .lg-nav { display: flex; align-items: center; gap: 2rem; padding: 1rem 2rem; border-bottom: 0.5px solid #e5e5e5; }
+  .lg-logo { font-family: Georgia, serif; font-size: 18px; font-weight: 500; }
+  .lg-nav-links { display: flex; gap: 1.5rem; font-size: 14px; }
+  .lg-nav-links span { color: #666; cursor: pointer; }
+  .lg-nav-links span.active { color: #111; border-bottom: 2px solid #4444cc; padding-bottom: 2px; }
+  .lg-nav-right { margin-left: auto; display: flex; align-items: center; gap: 1rem; }
+  .lg-search { display: flex; align-items: center; border: 0.5px solid #ddd; border-radius: 8px; padding: 6px 12px; font-size: 13px; gap: 8px; background: #f5f5f5; width: 180px; }
+  .lg-search input { border: none; background: transparent; outline: none; font-size: 13px; color: #888; width: 100%; }
+  .lg-cart { width: 28px; height: 28px; border-radius: 50%; background: #3333bb; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; }
+  .lg-cart-badge { position: absolute; top: -4px; right: -4px; background: #e24b4a; color: white; font-size: 9px; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .lg-hero { display: flex; align-items: center; padding: 3rem 2rem; background: #f4f4f8; gap: 2rem; min-height: 320px; }
+  .lg-hero-text { flex: 1; }
+  .lg-hero-eyebrow { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5555aa; margin-bottom: 1rem; font-weight: 500; }
+  .lg-hero-title { font-family: Georgia, serif; font-size: 48px; line-height: 1.1; margin-bottom: 0.5rem; color: #111; }
+  .lg-hero-title em { color: #4444cc; font-style: italic; }
+  .lg-hero-desc { font-size: 14px; color: #666; line-height: 1.6; max-width: 340px; margin: 1rem 0 1.5rem; }
+  .lg-hero-btns { display: flex; gap: 12px; }
+  .lg-btn-primary { background: #3333bb; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-size: 13px; cursor: pointer; }
+  .lg-btn-secondary { background: transparent; color: #111; border: 0.5px solid #ccc; padding: 10px 20px; border-radius: 20px; font-size: 13px; cursor: pointer; }
+  .lg-hero-book-wrap { width: 220px; flex-shrink: 0; }
+  .lg-hero-book-img { width: 100%; border-radius: 8px; background: #1a2a3a; height: 260px; display: flex; align-items: flex-end; justify-content: center; padding: 12px; transform: rotate(-6deg); }
+  .lg-main { display: flex; gap: 0; padding: 2rem; }
+  .lg-sidebar { width: 160px; flex-shrink: 0; padding-right: 1.5rem; }
+  .lg-sidebar h4 { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 1rem; font-weight: 500; }
+  .lg-cat-list { list-style: none; margin-bottom: 1.5rem; }
+  .lg-cat-list li { display: flex; justify-content: space-between; align-items: center; padding: 7px 10px; border-radius: 8px; font-size: 13px; cursor: pointer; color: #666; }
+  .lg-cat-list li.active { background: #ebebf8; color: #3333bb; font-weight: 500; }
+  .lg-cat-badge { font-size: 11px; background: #f0f0f0; padding: 2px 6px; border-radius: 10px; color: #888; }
+  .lg-cat-list li.active .lg-cat-badge { background: #d0d0f0; color: #3333bb; }
+  .lg-price-label { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-top: 8px; }
+  .lg-quote-card { background: #ebebf8; border-radius: 8px; padding: 12px; margin-top: 1.5rem; }
+  .lg-quote-card p { font-family: Georgia, serif; font-size: 13px; color: #3333aa; font-style: italic; line-height: 1.5; margin-bottom: 6px; }
+  .lg-quote-card cite { font-size: 11px; color: #888; font-style: normal; }
+  .lg-content { flex: 1; min-width: 0; }
+  .lg-content-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+  .lg-section-title { font-family: Georgia, serif; font-size: 24px; }
+  .lg-section-title em { color: #4444cc; font-style: italic; }
+  .lg-sort { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #888; }
+  .lg-sort select { border: 0.5px solid #ddd; border-radius: 8px; padding: 4px 10px; font-size: 13px; background: #fff; color: #111; }
+  .lg-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+  .lg-book-card { cursor: pointer; }
+  .lg-book-cover { border-radius: 8px; height: 200px; overflow: hidden; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; }
+  .lg-book-meta { display: flex; justify-content: space-between; align-items: baseline; }
+  .lg-book-title { font-size: 14px; font-weight: 500; }
+  .lg-book-price { color: #4444cc; font-size: 14px; font-weight: 500; }
+  .lg-book-author { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin: 3px 0 5px; }
+  .lg-book-stats { display: flex; justify-content: space-between; font-size: 11px; color: #888; }
+  .lg-stars { color: #f0a020; }
+  .lg-pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 2rem; }
+  .lg-page-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0.5px solid #ddd; border-radius: 8px; font-size: 13px; cursor: pointer; color: #888; }
+  .lg-page-btn.active { background: #3333bb; color: white; border-color: #3333bb; }
+  .lg-footer { background: #f9f9f9; border-top: 0.5px solid #e5e5e5; padding: 2.5rem 2rem; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 2rem; margin-top: 2rem; }
+  .lg-footer-brand { font-family: Georgia, serif; font-size: 16px; margin-bottom: 8px; }
+  .lg-footer-desc { font-size: 13px; color: #888; line-height: 1.6; }
+  .lg-footer h5 { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 12px; font-weight: 500; }
+  .lg-footer ul { list-style: none; }
+  .lg-footer ul li { font-size: 13px; color: #888; margin-bottom: 8px; cursor: pointer; }
+  .lg-newsletter-input { display: flex; align-items: center; border: 0.5px solid #ddd; border-radius: 8px; overflow: hidden; margin-top: 8px; }
+  .lg-newsletter-input input { flex: 1; border: none; outline: none; padding: 8px 12px; font-size: 13px; background: #fff; color: #111; }
+  .lg-newsletter-btn { background: none; border: none; padding: 8px 12px; cursor: pointer; font-size: 16px; color: #888; }
+  .lg-footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-top: 0.5px solid #e5e5e5; font-size: 11px; color: #888; }
+  .lg-footer-bottom-links { display: flex; gap: 1rem; }
+  .lg-footer-bottom-links span { cursor: pointer; }

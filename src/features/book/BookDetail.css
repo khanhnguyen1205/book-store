@@ -1,0 +1,95 @@
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .bd-wrap { font-family: sans-serif; background: #fff; color: #111; }
+
+  /* NAV */
+  .bd-nav { display: flex; align-items: center; gap: 2rem; padding: 1rem 2rem; border-bottom: 0.5px solid #e5e5e5; }
+  .bd-logo { font-family: Georgia, serif; font-size: 17px; font-weight: 500; color: #3333bb; }
+  .bd-nav-links { display: flex; gap: 1.5rem; font-size: 13px; }
+  .bd-nav-links span { color: #666; cursor: pointer; }
+  .bd-nav-links span.active { color: #111; border-bottom: 2px solid #4444cc; padding-bottom: 2px; }
+  .bd-nav-right { margin-left: auto; display: flex; align-items: center; gap: 1rem; }
+  .bd-signin { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #444; cursor: pointer; font-weight: 500; }
+  .bd-cart { width: 28px; height: 28px; border-radius: 50%; background: #3333bb; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; }
+  .bd-cart-badge { position: absolute; top: -4px; right: -4px; background: #e24b4a; color: white; font-size: 9px; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+  /* HERO PRODUCT */
+  .bd-hero { background: #f5f5fa; padding: 2.5rem 2rem; display: flex; gap: 3rem; align-items: flex-start; }
+  .bd-book-img { width: 220px; flex-shrink: 0; border-radius: 12px; overflow: hidden; background: #111; }
+  .bd-book-img img { width: 100%; display: block; }
+  .bd-book-placeholder { width: 220px; height: 290px; background: linear-gradient(160deg, #1a1a2e 0%, #0d0d1a 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+  .bd-book-face { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .bd-product-info { flex: 1; }
+  .bd-eyebrow { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #5555aa; margin-bottom: 0.75rem; font-weight: 500; }
+  .bd-title { font-family: Georgia, serif; font-size: 44px; line-height: 1.1; margin-bottom: 0.5rem; color: #111; }
+  .bd-author { font-family: Georgia, serif; font-size: 16px; color: #666; font-style: italic; margin-bottom: 1.25rem; }
+  .bd-price-row { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+  .bd-price { font-size: 28px; font-weight: 600; color: #3333bb; }
+  .bd-price-original { font-size: 15px; color: #aaa; text-decoration: line-through; }
+  .bd-discount { background: #eeeef8; color: #3333bb; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; }
+  .bd-meta-row { display: flex; gap: 2.5rem; margin-bottom: 1.75rem; padding-bottom: 1.5rem; border-bottom: 0.5px solid #e0e0ee; }
+  .bd-meta-item {}
+  .bd-meta-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin-bottom: 4px; font-weight: 500; }
+  .bd-meta-value { font-size: 13px; color: #333; display: flex; align-items: center; gap: 5px; }
+  .bd-dot { width: 7px; height: 7px; border-radius: 50%; background: #22cc77; display: inline-block; }
+  .bd-actions { display: flex; align-items: center; gap: 12px; }
+  .bd-qty { display: flex; align-items: center; border: 0.5px solid #ddd; border-radius: 8px; overflow: hidden; }
+  .bd-qty-btn { width: 34px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: none; font-size: 18px; cursor: pointer; color: #555; }
+  .bd-qty-val { width: 36px; text-align: center; font-size: 14px; font-weight: 500; border-left: 0.5px solid #eee; border-right: 0.5px solid #eee; height: 40px; line-height: 40px; }
+  .bd-btn-cart { background: #3333bb; color: white; border: none; padding: 0 24px; height: 40px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 500; }
+  .bd-btn-buy { background: transparent; color: #111; border: 0.5px solid #ccc; padding: 0 24px; height: 40px; border-radius: 8px; font-size: 14px; cursor: pointer; }
+
+  /* NARRATIVE SECTION */
+  .bd-narrative-section { padding: 3rem 2rem; display: flex; gap: 2.5rem; align-items: flex-start; }
+  .bd-narrative { flex: 1; }
+  .bd-narrative h2 { font-family: Georgia, serif; font-size: 26px; margin-bottom: 1.25rem; color: #111; }
+  .bd-narrative p { font-size: 14px; color: #555; line-height: 1.75; margin-bottom: 1rem; }
+  .bd-pub-row { display: flex; gap: 3rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 0.5px solid #e5e5e5; }
+  .bd-pub-item {}
+  .bd-pub-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin-bottom: 4px; font-weight: 500; }
+  .bd-pub-value { font-size: 14px; color: #222; font-weight: 500; }
+  .bd-right-col { width: 280px; flex-shrink: 0; display: flex; flex-direction: column; gap: 1rem; }
+
+  /* SENTIMENT CARD */
+  .bd-sentiment-card { background: #fff; border: 0.5px solid #e0e0ee; border-radius: 12px; padding: 1.25rem; }
+  .bd-sentiment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .bd-sentiment-header h3 { font-size: 15px; font-weight: 500; }
+  .bd-stars { color: #4444cc; font-size: 15px; letter-spacing: 2px; }
+  .bd-review { border-left: 2px solid #e0e0f0; padding-left: 10px; margin-bottom: 12px; }
+  .bd-review p { font-size: 12px; color: #555; font-style: italic; line-height: 1.55; margin-bottom: 4px; }
+  .bd-review cite { font-size: 11px; color: #aaa; font-style: normal; }
+  .bd-read-all { font-size: 12px; color: #3333bb; cursor: pointer; margin-top: 4px; display: block; }
+
+  /* BOOK CLUB CARD */
+  .bd-bookclub-card { background: #3333bb; border-radius: 12px; padding: 1.25rem 1.5rem; }
+  .bd-bookclub-card h4 { font-family: Georgia, serif; font-size: 15px; color: white; font-style: italic; margin-bottom: 8px; }
+  .bd-bookclub-card p { font-size: 12px; color: #cccce8; line-height: 1.55; margin-bottom: 14px; }
+  .bd-join-btn { background: white; color: #3333bb; border: none; padding: 8px 20px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; letter-spacing: 0.04em; }
+
+  /* RELATED */
+  .bd-related-section { padding: 2.5rem 2rem; }
+  .bd-related-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; }
+  .bd-related-eyebrow { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #5555aa; margin-bottom: 4px; font-weight: 500; }
+  .bd-related-title { font-family: Georgia, serif; font-size: 28px; color: #111; }
+  .bd-view-all { font-size: 13px; color: #444; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+  .bd-related-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
+  .bd-related-card { cursor: pointer; }
+  .bd-related-cover { border-radius: 10px; overflow: hidden; height: 200px; margin-bottom: 10px; background: #222; }
+  .bd-related-cover svg { width: 100%; height: 100%; display: block; }
+  .bd-related-book-title { font-size: 14px; font-weight: 500; color: #111; margin-bottom: 3px; }
+  .bd-related-author { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .bd-related-price { font-size: 14px; color: #3333bb; font-weight: 500; }
+
+  /* FOOTER */
+  .bd-footer { background: #f9f9fc; border-top: 0.5px solid #e5e5ee; padding: 2.5rem 2rem; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 2rem; margin-top: 2rem; }
+  .bd-footer-brand { font-family: Georgia, serif; font-size: 16px; color: #3333bb; margin-bottom: 8px; }
+  .bd-footer-desc { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 12px; }
+  .bd-footer-icons { display: flex; gap: 10px; }
+  .bd-footer h5 { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 12px; font-weight: 600; }
+  .bd-footer ul { list-style: none; }
+  .bd-footer ul li { font-size: 13px; color: #666; margin-bottom: 8px; cursor: pointer; }
+  .bd-newsletter-desc { font-size: 13px; color: #888; line-height: 1.55; margin-bottom: 10px; }
+  .bd-newsletter-input { display: flex; align-items: center; border: 0.5px solid #ddd; border-radius: 8px; overflow: hidden; }
+  .bd-newsletter-input input { flex: 1; border: none; outline: none; padding: 9px 12px; font-size: 13px; background: #fff; color: #111; }
+  .bd-newsletter-btn { background: #3333bb; border: none; padding: 9px 14px; cursor: pointer; color: white; font-size: 14px; }
+  .bd-footer-bottom { text-align: center; padding: 1rem 2rem; border-top: 0.5px solid #e5e5ee; font-size: 11px; color: #aaa; }
+  .bd-footer-bottom span { display: block; margin-bottom: 3px; }

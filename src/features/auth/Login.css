@@ -1,0 +1,271 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@300;400;500;600&display=swap");
+
+/* ── Page Layout ─────────────────────────────────────────── */
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(145deg, #ede9f6 0%, #f0edf8 40%, #e8e4f4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Watermarks ───────────────────────────────────────────── */
+.watermark {
+  position: absolute;
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 7rem;
+  font-weight: 600;
+  color: rgba(120, 100, 200, 0.08);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+.watermark-top-right {
+  top: 20px;
+  right: 40px;
+}
+
+.watermark-bottom-left {
+  bottom: 20px;
+  left: 40px;
+}
+
+/* ── Inner Wrapper ────────────────────────────────────────── */
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  max-width: 480px;
+  padding: 0 16px;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.login-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.login-brand {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #3a29cc;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.01em;
+}
+
+.login-subtitle {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: #9090b0;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.login-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 44px 44px 36px;
+  width: 100%;
+  box-shadow: 0 8px 40px rgba(90, 70, 200, 0.08);
+}
+
+/* ── Form ─────────────────────────────────────────────────── */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #7070a0;
+  text-transform: uppercase;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #f0edf8;
+  font-size: 0.9rem;
+  color: #333;
+  font-family: "Inter", sans-serif;
+  outline: none;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-input::placeholder {
+  color: #b0a8c8;
+  font-size: 0.88rem;
+}
+
+.form-input:focus {
+  background: #ece8f8;
+  box-shadow: 0 0 0 2px rgba(90, 70, 220, 0.18);
+}
+
+/* ── Password Wrapper ─────────────────────────────────────── */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper .form-input {
+  padding-right: 48px;
+}
+
+.eye-toggle {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #aaa8c8;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.eye-toggle:hover {
+  color: #5a46dc;
+}
+
+/* ── Remember Me & Forgot ─────────────────────────────────── */
+.form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #c8c4e0;
+  border-radius: 4px;
+  accent-color: #5a46dc;
+  cursor: pointer;
+}
+
+.remember-label {
+  font-size: 0.85rem;
+  color: #606080;
+}
+
+.forgot-password {
+  font-size: 0.85rem;
+  color: #5a46dc;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.forgot-password:hover {
+  opacity: 0.75;
+}
+
+/* ── Sign In Button ───────────────────────────────────────── */
+.btn-signin {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #5a46dc 0%, #6b58f0 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  margin-top: 4px;
+}
+
+.btn-signin:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(90, 70, 220, 0.35);
+}
+
+.btn-signin:active {
+  transform: translateY(0);
+  opacity: 0.9;
+}
+
+/* ── Card Footer ──────────────────────────────────────────── */
+.login-footer {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.register-text {
+  font-size: 0.85rem;
+  color: #909098;
+  margin: 0;
+}
+
+.register-link {
+  color: #5a46dc;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.register-link:hover {
+  opacity: 0.75;
+}
+
+/* ── Bottom Icon Bar ──────────────────────────────────────── */
+.bottom-icons {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: #b0aac8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.icon-btn:hover {
+  color: #5a46dc;
+  background: rgba(90, 70, 220, 0.08);
+}
