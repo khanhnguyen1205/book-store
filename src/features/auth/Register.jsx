@@ -263,7 +263,7 @@ export default function CreateAccount() {
             const normalizedEmail = email.toLowerCase().trim();
 
             // Check if email exists
-            const { data: existingAccounts } = await api.get(`/accounts?email=${normalizedEmail}`);
+            const { data: existingAccounts } = await api.get(`/users?email=${normalizedEmail}`);
             
             if (existingAccounts.length > 0) {
                 setErrors({ email: "Email already exists" });
@@ -272,7 +272,7 @@ export default function CreateAccount() {
             }
 
             // Create new account
-            await api.post('/accounts', {
+            await api.post('/users', {
                 fullName: fullName.trim(),
                 email: normalizedEmail,
                 password,
@@ -285,7 +285,9 @@ export default function CreateAccount() {
             }, 1000);
             
         } catch (err) {
-            setErrors({ general: "Something went wrong. Please try again." });
+            // Lấy thông báo lỗi chi tiết từ server (nếu có) hoặc dùng thông báo mặc định của lỗi
+            const errorMessage = err.response?.data?.message || err.message || "An unexpected error occurred.";
+            setErrors({ general: `Registration failed: ${errorMessage}` });
         } finally {
             setLoading(false);
         }
