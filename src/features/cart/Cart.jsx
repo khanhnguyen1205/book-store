@@ -3,6 +3,8 @@ import "./Cart.css";
 import CartItem from "./CartItem";
 import { useCart } from "./CartContext";
 import { calculateSubtotal, calculateTax, formatPrice } from "./cartUtils";
+import { useAuth } from "../auth/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 /* ── SVG Book Covers ── */
 const Cover1 = () => (
@@ -57,6 +59,8 @@ const ShoeIllustration = () => (
 
 export default function CartPage() {
     const { cart } = useCart();
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
     
     const subtotal = calculateSubtotal(cart);
     const tax = calculateTax(subtotal);
@@ -75,7 +79,7 @@ export default function CartPage() {
                     <span>Curated Collections</span>
                 </div>
                 <div className="cart-nav-right">
-                    <div className="cart-nav-icon">
+                    <div className="cart-nav-icon" style={{ cursor: "pointer" }} onClick={() => user ? navigate("/cart") : navigate("/login")}>
                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                             <path d="M2 2h2l1.5 8h8l1.5-6H5.5" stroke="#555" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                             <circle cx="8" cy="15" r="1.2" fill="#555" />
@@ -88,7 +92,11 @@ export default function CartPage() {
                             <path d="M3 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#555" strokeWidth="1.4" strokeLinecap="round" />
                         </svg>
                     </div>
-                    <button className="cart-nav-signin">Sign In</button>
+                    {user ? (
+                        <button className="cart-nav-signin" onClick={() => { logout(); navigate("/login"); }}>Sign Out</button>
+                    ) : (
+                        <button className="cart-nav-signin" onClick={() => navigate("/login")}>Sign In</button>
+                    )}
                 </div>
             </nav>
 

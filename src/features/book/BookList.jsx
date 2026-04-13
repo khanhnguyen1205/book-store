@@ -113,7 +113,13 @@ export default function BookList() {
         cartItemCount={cartItemCount}
         onLoginClick={handleLoginClick}
         onLogoutClick={handleLogoutClick}
-        onCartClick={() => navigate("/cart")}
+        onCartClick={() => {
+          if (user) {
+            navigate("/cart");
+          } else {
+            navigate("/login");
+          }
+        }}
       />
 
       <Hero />

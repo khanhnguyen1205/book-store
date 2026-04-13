@@ -139,7 +139,7 @@ export default function BookDetail() {
                     ) : (
                         <span className="bd-signin" onClick={() => navigate("/login")}>Sign In</span>
                     )}
-                    <div className="bd-cart" onClick={() => navigate("/cart")}>
+                    <div className="bd-cart" onClick={() => user ? navigate("/cart") : navigate("/login")}>
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                             <path d="M2 2h1.5l1 7h7l1-5H5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             <circle cx="7" cy="13" r="1" fill="white" />
