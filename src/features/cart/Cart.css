@@ -7,55 +7,6 @@
   min-height: 100vh;
 }
 
-/* ── NAV ── */
-.cart-nav {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  padding: 0.9rem 2rem;
-  border-bottom: 0.5px solid #e8e8ee;
-}
-.cart-nav-logo {
-  font-family: Georgia, serif;
-  font-size: 17px;
-  font-style: italic;
-  color: #3333cc;
-  font-weight: 500;
-  white-space: nowrap;
-}
-.cart-nav-links {
-  display: flex;
-  gap: 1.75rem;
-  font-size: 14px;
-}
-.cart-nav-links span {
-  color: #555;
-  cursor: pointer;
-}
-.cart-nav-right {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.cart-nav-icon {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-.cart-nav-signin {
-  background: #3333cc;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 20px;
-  font-size: 13px;
-  cursor: pointer;
-  font-weight: 500;
-}
 
 /* ── PAGE HEADER ── */
 .cart-header {

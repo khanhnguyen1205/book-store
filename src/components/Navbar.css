@@ -1,0 +1,109 @@
+.lg-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  border-bottom: 0.5px solid #e5e5e5;
+  background: #fff;
+  font-family: sans-serif;
+}
+
+.lg-logo {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #111;
+}
+
+.lg-logo:hover {
+  color: #3333bb;
+}
+
+.lg-nav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+}
+
+.lg-nav-links a {
+  color: #666;
+  cursor: pointer;
+  text-decoration: none;
+  padding-bottom: 2px;
+}
+
+.lg-nav-links a:hover {
+  color: #111;
+}
+
+.lg-nav-links a.active {
+  color: #111;
+  border-bottom: 2px solid #4444cc;
+}
+
+.lg-nav-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lg-search {
+  display: flex;
+  align-items: center;
+  border: 0.5px solid #ddd;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  gap: 8px;
+  background: #f5f5f5;
+  width: 180px;
+}
+
+.lg-search input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  color: #888;
+  width: 100%;
+}
+
+.lg-cart {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #3333bb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.lg-cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #e24b4a;
+  color: white;
+  font-size: 9px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lg-nav-auth {
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.lg-nav-auth:hover {
+  color: #111;
+}

@@ -3,8 +3,8 @@ import "./Cart.css";
 import CartItem from "./CartItem";
 import { useCart } from "./CartContext";
 import { calculateSubtotal, calculateTax, formatPrice } from "./cartUtils";
-import { useAuth } from "../auth/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Navbar from "../../components/Navbar";
 
 /* ── SVG Book Covers ── */
 const Cover1 = () => (
@@ -59,9 +59,6 @@ const ShoeIllustration = () => (
 
 export default function CartPage() {
     const { cart } = useCart();
-    const { user, logout } = useAuth();
-    const navigate = useNavigate();
-    
     const subtotal = calculateSubtotal(cart);
     const tax = calculateTax(subtotal);
     const shipping = cart.length > 0 ? 12.00 : 0;
@@ -70,35 +67,7 @@ export default function CartPage() {
     return (
         <div className="cart-page">
 
-            {/* Navbar */}
-            <nav className="cart-nav">
-                <div className="cart-nav-logo">The Literary Gallery</div>
-                <div className="cart-nav-links">
-                    <span>Browse</span>
-                    <span>New Arrivals</span>
-                    <span>Curated Collections</span>
-                </div>
-                <div className="cart-nav-right">
-                    <div className="cart-nav-icon" style={{ cursor: "pointer" }} onClick={() => user ? navigate("/cart") : navigate("/login")}>
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                            <path d="M2 2h2l1.5 8h8l1.5-6H5.5" stroke="#555" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                            <circle cx="8" cy="15" r="1.2" fill="#555" />
-                            <circle cx="12.5" cy="15" r="1.2" fill="#555" />
-                        </svg>
-                    </div>
-                    <div className="cart-nav-icon">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                            <circle cx="9" cy="6" r="3.5" stroke="#555" strokeWidth="1.4" />
-                            <path d="M3 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#555" strokeWidth="1.4" strokeLinecap="round" />
-                        </svg>
-                    </div>
-                    {user ? (
-                        <button className="cart-nav-signin" onClick={() => { logout(); navigate("/login"); }}>Sign Out</button>
-                    ) : (
-                        <button className="cart-nav-signin" onClick={() => navigate("/login")}>Sign In</button>
-                    )}
-                </div>
-            </nav>
+            <Navbar />
 
             {/* Page Header */}
             <div className="cart-header">
@@ -151,12 +120,12 @@ export default function CartPage() {
                         </svg>
                         <div><strong>Premium Curation:</strong> All orders are hand-wrapped in artisan parchment and shipped via priority courier.</div>
                     </div>
-                    <div className="cart-continue">
+                    <Link to="/" className="cart-continue" style={{ textDecoration: 'none' }}>
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                             <path d="M9 3L5 7l4 4" stroke="#888" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                         Continue Browsing
-                    </div>
+                    </Link>
                 </div>
             </div>
 

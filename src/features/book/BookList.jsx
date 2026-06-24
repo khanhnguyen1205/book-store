@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { bookService } from './bookService';
-import { useAuth } from '../auth/AuthContext';
-import { useCart } from '../cart/CartContext';
 import BookCard from '../../components/BookCard';
 import Navbar from '../../components/Navbar';
 import Hero from '../../components/Hero';
@@ -34,8 +32,6 @@ export default function BookList() {
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
-  const { cart } = useCart();
 
   // Debounce search
   useEffect(() => {
@@ -93,34 +89,9 @@ export default function BookList() {
     setPage(1);
   };
 
-  const handleLogoutClick = () => {
-    logout();
-    navigate("/login");
-  };
-
-  const handleLoginClick = () => {
-    navigate("/login");
-  };
-
-  const cartItemCount = cart.reduce((Sum, item) => Sum + item.quantity, 0);
-
   return (
     <div className="lg-wrap">
-      <Navbar 
-        search={search}
-        onSearchChange={setSearch}
-        user={user}
-        cartItemCount={cartItemCount}
-        onLoginClick={handleLoginClick}
-        onLogoutClick={handleLogoutClick}
-        onCartClick={() => {
-          if (user) {
-            navigate("/cart");
-          } else {
-            navigate("/login");
-          }
-        }}
-      />
+      <Navbar search={search} onSearchChange={setSearch} />
 
       <Hero />
 

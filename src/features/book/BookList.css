@@ -1,15 +1,5 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   .lg-wrap { font-family: sans-serif; background: #fff; color: #111; }
-  .lg-nav { display: flex; align-items: center; gap: 2rem; padding: 1rem 2rem; border-bottom: 0.5px solid #e5e5e5; }
-  .lg-logo { font-family: Georgia, serif; font-size: 18px; font-weight: 500; }
-  .lg-nav-links { display: flex; gap: 1.5rem; font-size: 14px; }
-  .lg-nav-links span { color: #666; cursor: pointer; }
-  .lg-nav-links span.active { color: #111; border-bottom: 2px solid #4444cc; padding-bottom: 2px; }
-  .lg-nav-right { margin-left: auto; display: flex; align-items: center; gap: 1rem; }
-  .lg-search { display: flex; align-items: center; border: 0.5px solid #ddd; border-radius: 8px; padding: 6px 12px; font-size: 13px; gap: 8px; background: #f5f5f5; width: 180px; }
-  .lg-search input { border: none; background: transparent; outline: none; font-size: 13px; color: #888; width: 100%; }
-  .lg-cart { width: 28px; height: 28px; border-radius: 50%; background: #3333bb; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; }
-  .lg-cart-badge { position: absolute; top: -4px; right: -4px; background: #e24b4a; color: white; font-size: 9px; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
   .lg-hero { display: flex; align-items: center; padding: 3rem 2rem; background: #f4f4f8; gap: 2rem; min-height: 320px; }
   .lg-hero-text { flex: 1; }
   .lg-hero-eyebrow { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5555aa; margin-bottom: 1rem; font-weight: 500; }

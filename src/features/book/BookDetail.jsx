@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { bookService } from "./bookService";
 import { useAuth } from "../auth/AuthContext";
 import { useCart } from "../cart/CartContext";
+import Navbar from "../../components/Navbar";
 import "./BookDetail.css";
 
 const RelatedCover1 = () => (
@@ -125,30 +126,7 @@ export default function BookDetail() {
 
     return (
         <div className="bd-wrap">
-            {/* Navbar */}
-            <nav className="bd-nav">
-                <div className="bd-logo">The Literary Gallery</div>
-                <div className="bd-nav-links">
-                    <span className="active">Browse</span>
-                    <span>New Arrivals</span>
-                    <span>Curated Collections</span>
-                </div>
-                <div className="bd-nav-right">
-                    {user ? (
-                        <span className="bd-signin" onClick={() => { logout(); navigate("/login"); }}>Sign Out</span>
-                    ) : (
-                        <span className="bd-signin" onClick={() => navigate("/login")}>Sign In</span>
-                    )}
-                    <div className="bd-cart" onClick={() => user ? navigate("/cart") : navigate("/login")}>
-                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                            <path d="M2 2h1.5l1 7h7l1-5H5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            <circle cx="7" cy="13" r="1" fill="white" />
-                            <circle cx="11" cy="13" r="1" fill="white" />
-                        </svg>
-                        {cart.length > 0 && <div className="bd-cart-badge">{cart.reduce((Sum, item) => Sum + item.quantity, 0)}</div>}
-                    </div>
-                </div>
-            </nav>
+            <Navbar />
 
             {/* Hero product section */}
             <section className="bd-hero">
