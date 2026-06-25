@@ -28,7 +28,8 @@ export default function BookList() {
   
   const [category, setCategory] = useState('All');
   const [sort, setSort] = useState('');
-  
+  const [maxPrice, setMaxPrice] = useState(60);
+
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const navigate = useNavigate();
@@ -61,6 +62,8 @@ export default function BookList() {
           params.category = category;
         }
         
+        params.price_lte = maxPrice * 1000;
+
         if (sort === 'price_asc') {
           params._sort = 'price';
           params._order = 'asc';
@@ -80,12 +83,17 @@ export default function BookList() {
     };
     
     fetchBooks();
-  }, [debouncedSearch, category, sort, page]);
+  }, [debouncedSearch, category, sort, maxPrice, page]);
 
   const totalPages = Math.ceil(totalCount / LIMIT) || 1;
 
   const handleCategoryChange = (catLabel) => {
     setCategory(catLabel);
+    setPage(1);
+  };
+
+  const handlePriceChange = (value) => {
+    setMaxPrice(value);
     setPage(1);
   };
 
@@ -97,10 +105,12 @@ export default function BookList() {
 
       {/* Main layout */}
       <div className="lg-main">
-        <Sidebar 
+        <Sidebar
           categories={categoriesList}
           activeCategory={category}
           onCategoryChange={handleCategoryChange}
+          maxPrice={maxPrice}
+          onPriceChange={handlePriceChange}
         />
 
         {/* Book grid */}
