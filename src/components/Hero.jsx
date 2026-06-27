@@ -56,6 +56,7 @@ function SlideContent({ book, rank, onView }) {
             src={book.image}
             alt={book.title}
             style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 4 }}
+            onError={(e) => { e.target.style.display = 'none'; }}
           />
         </div>
       </div>

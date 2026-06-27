@@ -8,7 +8,12 @@ export default function BookCard({ book }) {
     <div className="lg-book-card">
       <div className="lg-book-cover" style={{ background: bg }}>
         {book.image ? (
-          <img src={book.image} alt={book.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img
+            src={book.image}
+            alt={book.title}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
         ) : (
           <div style={{ padding: '20px', textAlign: 'center', color: '#666' }}>No Image</div>
         )}
