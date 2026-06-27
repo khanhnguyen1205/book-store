@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { bookService } from '../features/book/bookService';
-import Button from './Button';
 
 const SLIDE_DURATION = 420;
 const AUTO_INTERVAL = 6000;
 const EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
 const DRAG_THRESHOLD = 80;  // px needed to commit a slide
+const CLICK_THRESHOLD = 8;  // px below which a pointer release counts as a click
 const SNAP_DURATION = 280;  // ms for snap-back animation
+const COMMIT_DURATION = 360; // ms to finish the slide from the drag position
 
 const slideCSS = `
   .hero-viewport { position: relative; overflow: hidden; height: 360px; padding: 0 !important; }
@@ -20,9 +21,10 @@ const slideCSS = `
   @keyframes heroOutRight { from { transform: translateX(0); }     to { transform: translateX(105%); }  }
   @keyframes heroInRight  { from { transform: translateX(105%); }  to { transform: translateX(0); }     }
   @keyframes heroInLeft   { from { transform: translateX(-105%); } to { transform: translateX(0); }     }
+  .hero-slide img { -webkit-user-drag: none; user-drag: none; }
 `;
 
-function SlideContent({ book, rank, onView }) {
+function SlideContent({ book, rank }) {
   const displayPrice =
     book.price > 1000
       ? `$${(book.price / 1000).toFixed(2)}`
@@ -46,16 +48,14 @@ function SlideContent({ book, rank, onView }) {
           <span>{book.sold?.toLocaleString()} sold</span>
           <span style={{ color: '#3333bb', fontWeight: 600 }}>{displayPrice}</span>
         </div>
-        <div className="lg-hero-btns">
-          <Button variant="primary" onClick={onView}>View Book</Button>
-        </div>
       </div>
       <div className="lg-hero-book-wrap">
         <div className="lg-hero-book-img" style={{ background: book.bg || '#1a2a3a' }}>
           <img
             src={book.image}
             alt={book.title}
-            style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 4 }}
+            draggable={false}
+            style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 4, WebkitUserDrag: 'none' }}
             onError={(e) => { e.target.style.display = 'none'; }}
           />
         </div>
@@ -74,9 +74,10 @@ export default function Hero() {
 
   // Drag state
   const [dragDelta, setDragDelta] = useState(0);
-  // 'idle' | 'dragging' | 'snapping'
+  // 'idle' | 'dragging' | 'snapping' | 'committing'
   const [dragPhase, setDragPhase] = useState('idle');
   const [peekIndex, setPeekIndex] = useState(null);
+  const [commitGo, setCommitGo] = useState(false);  // flips after a frame to drive the commit transition
 
   const animatingRef = useRef(false);
   const currentIndexRef = useRef(0);
@@ -84,6 +85,8 @@ export default function Hero() {
   const dragActiveRef = useRef(false);
   const dragStartXRef = useRef(0);
   const dragDeltaRef = useRef(0);  // mirror of dragDelta for use in callbacks
+  const commitDirRef = useRef(1);  // -1 = sliding left (to next), 1 = sliding right (to prev)
+  const commitToRef = useRef(0);   // index to land on after the commit transition
 
   useEffect(() => {
     bookService
@@ -155,17 +158,35 @@ export default function Hero() {
     dragActiveRef.current = false;
     const delta = dragDeltaRef.current;
 
-    if (Math.abs(delta) >= DRAG_THRESHOLD) {
-      // Commit the slide
+    if (Math.abs(delta) < CLICK_THRESHOLD) {
+      // Treated as a click → open the current book's detail page
+      setDragDelta(0);
+      setDragPhase('idle');
+      setPeekIndex(null);
+      const current = topBooks[currentIndexRef.current];
+      if (current) navigate(`/book/${current.id}`);
+    } else if (Math.abs(delta) >= DRAG_THRESHOLD) {
+      // Commit: continue the animation from the current drag position (no jump back)
       const total = topBooks.length;
       const toIndex =
         delta < 0
           ? (currentIndexRef.current + 1) % total
           : (currentIndexRef.current - 1 + total) % total;
-      setDragDelta(0);
-      setDragPhase('idle');
-      setPeekIndex(null);
-      triggerTransition(toIndex, delta < 0);
+      animatingRef.current = true;
+      commitDirRef.current = delta < 0 ? -1 : 1;
+      commitToRef.current = toIndex;
+      setDragPhase('committing');
+      requestAnimationFrame(() => {
+        setCommitGo(true);
+        setTimeout(() => {
+          setCurrentIndex(commitToRef.current);
+          setDragPhase('idle');
+          setDragDelta(0);
+          setPeekIndex(null);
+          setCommitGo(false);
+          animatingRef.current = false;
+        }, COMMIT_DURATION + 40);
+      });
     } else {
       // Snap back: first set transition, then update delta to 0 in next frame
       setDragPhase('snapping');
@@ -186,7 +207,9 @@ export default function Hero() {
 
   const isDragging = dragPhase === 'dragging';
   const isSnapping = dragPhase === 'snapping';
+  const isCommitting = dragPhase === 'committing';
   const snapTransition = `transform ${SNAP_DURATION}ms ease-out`;
+  const commitTransition = `transform ${COMMIT_DURATION}ms ${EASING}`;
 
   // Current slide transform
   let currentTransform = 'translateX(0)';
@@ -194,6 +217,12 @@ export default function Hero() {
   if (isDragging || isSnapping) {
     currentTransform = `translateX(${dragDelta}px)`;
     if (isSnapping) currentTransition = snapTransition;
+  } else if (isCommitting) {
+    currentTransition = commitTransition;
+    // Continue from the drag position, then slide fully off in the drag direction
+    currentTransform = commitGo
+      ? `translateX(${commitDirRef.current * 100}%)`
+      : `translateX(${dragDelta}px)`;
   }
 
   // Peek slide transform (adjacent book that peeks in during drag)
@@ -206,9 +235,16 @@ export default function Hero() {
       peekTransform = `translateX(${sign * 105}%)`;
       peekTransition = snapTransition;
     }
+  } else if (isCommitting && peekIndex !== null) {
+    const sign = dragDelta <= 0 ? 1 : -1;
+    peekTransition = commitTransition;
+    // Continue from the peeked position, then settle to center
+    peekTransform = commitGo
+      ? 'translateX(0)'
+      : `translateX(calc(${sign * 100}% + ${dragDelta}px))`;
   }
 
-  const dragCursor = isDragging ? 'grabbing' : 'grab';
+  const dragCursor = isDragging ? 'grabbing' : 'pointer';
 
   return (
     <section
@@ -229,11 +265,7 @@ export default function Hero() {
             animation: `${forward ? 'heroOutLeft' : 'heroOutRight'} ${SLIDE_DURATION}ms ${EASING} forwards`,
           }}
         >
-          <SlideContent
-            book={topBooks[prevIndex]}
-            rank={prevIndex}
-            onView={() => navigate(`/book/${topBooks[prevIndex].id}`)}
-          />
+          <SlideContent book={topBooks[prevIndex]} rank={prevIndex} />
         </div>
       )}
 
@@ -243,11 +275,7 @@ export default function Hero() {
           className="hero-slide"
           style={{ transform: peekTransform, transition: peekTransition }}
         >
-          <SlideContent
-            book={topBooks[peekIndex]}
-            rank={peekIndex}
-            onView={() => {}}
-          />
+          <SlideContent book={topBooks[peekIndex]} rank={peekIndex} />
         </div>
       )}
 
@@ -265,11 +293,7 @@ export default function Hero() {
             : {}),
         }}
       >
-        <SlideContent
-          book={book}
-          rank={currentIndex}
-          onView={() => navigate(`/book/${book.id}`)}
-        />
+        <SlideContent book={book} rank={currentIndex} />
       </div>
 
       {/* Dot indicators */}

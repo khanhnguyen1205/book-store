@@ -25,9 +25,17 @@ export default function Navbar({ search, onSearchChange }) {
     }
   };
 
+  const firstName = user?.fullName?.split(' ')[0] || user?.email;
+
   return (
     <nav className="lg-nav">
-      <Link to="/" className="lg-logo">The Literary Gallery</Link>
+      <Link to="/" className="lg-logo">
+        <svg className="lg-logo-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v16H5.5A1.5 1.5 0 0 0 4 20.5V4.5Z" stroke="#3333bb" strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M20 4.5A1.5 1.5 0 0 0 18.5 3H13v16h5.5a1.5 1.5 0 0 1 1.5 1.5V4.5Z" stroke="#3333bb" strokeWidth="1.6" strokeLinejoin="round" />
+        </svg>
+        <span>The Literary Gallery</span>
+      </Link>
       <div className="lg-nav-links">
         <NavLink to="/" end>Home</NavLink>
         <NavLink to="/cart">Cart</NavLink>
@@ -36,17 +44,18 @@ export default function Navbar({ search, onSearchChange }) {
         {onSearchChange && (
           <SearchBar value={search || ''} onChange={onSearchChange} />
         )}
-        <span className="lg-nav-auth" onClick={handleAuthClick}>
-          {user ? 'Sign Out' : 'Sign In'}
-        </span>
-        <div className="lg-cart" onClick={handleCartClick}>
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <div className="lg-cart" onClick={handleCartClick} title="Cart">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
             <path d="M2 2h1.5l1 7h7l1-5H5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <circle cx="7" cy="13" r="1" fill="white" />
             <circle cx="11" cy="13" r="1" fill="white" />
           </svg>
           {cartItemCount > 0 && <div className="lg-cart-badge">{cartItemCount}</div>}
         </div>
+        {user && <span className="lg-nav-greeting">Hi, {firstName}</span>}
+        <button className="lg-nav-auth" onClick={handleAuthClick}>
+          {user ? 'Sign Out' : 'Sign In'}
+        </button>
       </div>
     </nav>
   );
