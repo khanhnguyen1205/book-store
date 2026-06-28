@@ -67,17 +67,4 @@
   .bd-related-author { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
   .bd-related-price { font-size: 14px; color: #3333bb; font-weight: 500; }
 
-  /* FOOTER */
-  .bd-footer { background: #f9f9fc; border-top: 0.5px solid #e5e5ee; padding: 2.5rem 2rem; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 2rem; margin-top: 2rem; }
-  .bd-footer-brand { font-family: Georgia, serif; font-size: 16px; color: #3333bb; margin-bottom: 8px; }
-  .bd-footer-desc { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 12px; }
-  .bd-footer-icons { display: flex; gap: 10px; }
-  .bd-footer h5 { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 12px; font-weight: 600; }
-  .bd-footer ul { list-style: none; }
-  .bd-footer ul li { font-size: 13px; color: #666; margin-bottom: 8px; cursor: pointer; }
-  .bd-newsletter-desc { font-size: 13px; color: #888; line-height: 1.55; margin-bottom: 10px; }
-  .bd-newsletter-input { display: flex; align-items: center; border: 0.5px solid #ddd; border-radius: 8px; overflow: hidden; }
-  .bd-newsletter-input input { flex: 1; border: none; outline: none; padding: 9px 12px; font-size: 13px; background: #fff; color: #111; }
-  .bd-newsletter-btn { background: #3333bb; border: none; padding: 9px 14px; cursor: pointer; color: white; font-size: 14px; }
-  .bd-footer-bottom { text-align: center; padding: 1rem 2rem; border-top: 0.5px solid #e5e5ee; font-size: 11px; color: #aaa; }
-  .bd-footer-bottom span { display: block; margin-bottom: 3px; }
+  /* Footer dùng chung từ src/components/Footer.css */

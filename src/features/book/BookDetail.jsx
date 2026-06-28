@@ -4,6 +4,7 @@ import { bookService } from "./bookService";
 import { useAuth } from "../auth/AuthContext";
 import { useCart } from "../cart/CartContext";
 import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 import "./BookDetail.css";
 
 export default function BookDetail() {
@@ -218,48 +219,7 @@ export default function BookDetail() {
                 </div>
             </section>
 
-            {/* Footer */}
-            <footer>
-                <div className="bd-footer">
-                    <div>
-                        <div className="bd-footer-brand">The Literary Gallery</div>
-                        <p className="bd-footer-desc">Curating the world's finest stories for the discerning mind. Every volume a treasure, every shelf a journey.</p>
-                        <div className="bd-footer-icons">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#aaa" strokeWidth="1.2" /><path d="M5 8h6M8 5v6" stroke="#aaa" strokeWidth="1.2" strokeLinecap="round" /></svg>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="#aaa" strokeWidth="1.2" /><path d="M2 6l6 4 6-4" stroke="#aaa" strokeWidth="1.2" /></svg>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2h12v10H2z" stroke="#aaa" strokeWidth="1.2" /><path d="M5 6h6M5 8h4" stroke="#aaa" strokeWidth="1.2" strokeLinecap="round" /></svg>
-                        </div>
-                    </div>
-                    <div>
-                        <h5>Explore</h5>
-                        <ul>
-                            <li>Journal</li>
-                            <li>Contact</li>
-                            <li>Membership</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5>Information</h5>
-                        <ul>
-                            <li>Privacy</li>
-                            <li>Terms</li>
-                            <li>Shipping</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5>The Newsletter</h5>
-                        <p className="bd-newsletter-desc">Sign up for exclusive access to first editions and curator notes.</p>
-                        <div className="bd-newsletter-input">
-                            <input placeholder="Email" />
-                            <button className="bd-newsletter-btn">→</button>
-                        </div>
-                    </div>
-                </div>
-                <div className="bd-footer-bottom">
-                    <span>© 2024 The Literary Gallery. All rights reserved</span>
-                    <span>Designed at The Atelier</span>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

@@ -11,6 +11,10 @@ import AdminLayout from '../features/admin/AdminLayout';
 import Dashboard from '../features/admin/Dashboard';
 import ManageBooks from '../features/admin/ManageBooks';
 import ManageUsers from '../features/admin/ManageUsers';
+import About from '../features/info/About';
+import Contact from '../features/info/Contact';
+import Privacy from '../features/info/Privacy';
+import Terms from '../features/info/Terms';
 
 const AppRoutes = () => {
     return (
@@ -19,6 +23,10 @@ const AppRoutes = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<BookList />} />
             <Route path="/book/:id" element={<BookDetail />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
             <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>

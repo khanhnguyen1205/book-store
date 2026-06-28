@@ -5,6 +5,7 @@ import { useCart } from "./CartContext";
 import { calculateSubtotal, calculateTax, formatPrice } from "./cartUtils";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 /* ── Shoe illustration placeholder for upsell ── */
 const ShoeIllustration = () => (
@@ -130,39 +131,7 @@ export default function CartPage() {
                 </div>
             </div>
 
-            {/* Footer */}
-            <footer>
-                <div className="cart-footer">
-                    <div>
-                        <div className="cart-footer-brand">The Literary Gallery</div>
-                        <p className="cart-footer-desc">Defining the digital frontier for physical books. Curated with soul, delivered with grace.</p>
-                    </div>
-                    <div>
-                        <h5>Explore</h5>
-                        <ul>
-                            <li>Journal</li>
-                            <li>Collections</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5>Support</h5>
-                        <ul>
-                            <li>Contact</li>
-                            <li>Shipping</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5>Legal</h5>
-                        <ul>
-                            <li>Privacy</li>
-                            <li>Terms</li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="cart-footer-bottom">
-                    © 2024 The Literary Gallery. All rights reserved.
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

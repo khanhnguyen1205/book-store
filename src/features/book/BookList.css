@@ -40,15 +40,4 @@
   .lg-pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 2rem; }
   .lg-page-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0.5px solid #ddd; border-radius: 8px; font-size: 13px; cursor: pointer; color: #888; }
   .lg-page-btn.active { background: #3333bb; color: white; border-color: #3333bb; }
-  .lg-footer { background: #f9f9f9; border-top: 0.5px solid #e5e5e5; padding: 2.5rem 2rem; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 2rem; margin-top: 2rem; }
-  .lg-footer-brand { font-family: Georgia, serif; font-size: 16px; margin-bottom: 8px; }
-  .lg-footer-desc { font-size: 13px; color: #888; line-height: 1.6; }
-  .lg-footer h5 { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 12px; font-weight: 500; }
-  .lg-footer ul { list-style: none; }
-  .lg-footer ul li { font-size: 13px; color: #888; margin-bottom: 8px; cursor: pointer; }
-  .lg-newsletter-input { display: flex; align-items: center; border: 0.5px solid #ddd; border-radius: 8px; overflow: hidden; margin-top: 8px; }
-  .lg-newsletter-input input { flex: 1; border: none; outline: none; padding: 8px 12px; font-size: 13px; background: #fff; color: #111; }
-  .lg-newsletter-btn { background: none; border: none; padding: 8px 12px; cursor: pointer; font-size: 16px; color: #888; }
-  .lg-footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-top: 0.5px solid #e5e5e5; font-size: 11px; color: #888; }
-  .lg-footer-bottom-links { display: flex; gap: 1rem; }
-  .lg-footer-bottom-links span { cursor: pointer; }
+  /* Footer styles moved to src/components/Footer.css (Footer dùng chung nhiều trang). */

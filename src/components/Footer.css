@@ -1,0 +1,175 @@
+/* ===== Footer — dùng chung trên toàn bộ trang storefront ===== */
+
+.lg-footer {
+  background: #f9f9f9;
+  border-top: 0.5px solid #e5e5e5;
+  padding: 2.5rem 2rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.lg-footer-brand {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.lg-footer-desc {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.6;
+  max-width: 260px;
+}
+
+.lg-footer h5 {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.lg-footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lg-footer ul li {
+  margin-bottom: 8px;
+}
+
+/* Link thật trong footer */
+.lg-footer-link {
+  font-size: 13px;
+  color: #888;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.lg-footer-link:hover {
+  color: #3333bb;
+}
+
+/* Social icons */
+.lg-footer-social {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.lg-footer-social a {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 0.5px solid #ddd;
+  color: #666;
+  background: #fff;
+  transition: color 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.lg-footer-social a:hover {
+  color: #3333bb;
+  border-color: #3333bb;
+  transform: translateY(-2px);
+}
+
+/* Newsletter */
+.lg-newsletter-input {
+  display: flex;
+  align-items: center;
+  border: 0.5px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 8px;
+  background: #fff;
+}
+
+.lg-newsletter-input input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 9px 12px;
+  font-size: 13px;
+  background: transparent;
+  color: #111;
+}
+
+.lg-newsletter-btn {
+  background: none;
+  border: none;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #3333bb;
+}
+
+.lg-newsletter-btn:disabled {
+  color: #bbb;
+  cursor: not-allowed;
+}
+
+.lg-newsletter-msg {
+  font-size: 12px;
+  margin-top: 8px;
+  min-height: 16px;
+}
+
+.lg-newsletter-msg.success {
+  color: #16a34a;
+}
+
+.lg-newsletter-msg.error {
+  color: #dc2626;
+}
+
+/* Bottom bar */
+.lg-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 1rem 2rem;
+  border-top: 0.5px solid #e5e5e5;
+  font-size: 11px;
+  color: #888;
+  background: #f9f9f9;
+}
+
+.lg-footer-bottom-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.lg-footer-bottom-links a {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.lg-footer-bottom-links a:hover {
+  color: #3333bb;
+}
+
+@media (max-width: 768px) {
+  .lg-footer {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .lg-footer {
+    grid-template-columns: 1fr;
+  }
+}

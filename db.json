@@ -233,5 +233,6 @@
       "password": "123456",
       "role": "user"
     }
-  ]
+  ],
+  "subscribers": []
 }
