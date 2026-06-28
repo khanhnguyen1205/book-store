@@ -5,7 +5,12 @@ import Login from '../features/auth/Login';
 import Register from '../features/auth/Register';
 import Profile from '../features/auth/Profile';
 import ProtectedRoute from './ProtectedRoute';
+import AdminRoute from './AdminRoute';
 import Cart from '../features/cart/Cart';
+import AdminLayout from '../features/admin/AdminLayout';
+import Dashboard from '../features/admin/Dashboard';
+import ManageBooks from '../features/admin/ManageBooks';
+import ManageUsers from '../features/admin/ManageUsers';
 
 const AppRoutes = () => {
     return (
@@ -16,6 +21,11 @@ const AppRoutes = () => {
             <Route path="/book/:id" element={<BookDetail />} />
             <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+                <Route index element={<Dashboard />} />
+                <Route path="books" element={<ManageBooks />} />
+                <Route path="users" element={<ManageUsers />} />
+            </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     );

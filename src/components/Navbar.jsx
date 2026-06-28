@@ -39,6 +39,7 @@ export default function Navbar({ search, onSearchChange }) {
       <div className="lg-nav-links">
         <NavLink to="/" end>Home</NavLink>
         <NavLink to="/cart">Cart</NavLink>
+        {user?.role === 'admin' && <NavLink to="/admin">Admin</NavLink>}
       </div>
       <div className="lg-nav-right">
         {onSearchChange && (
