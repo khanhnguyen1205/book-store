@@ -11,6 +11,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +25,7 @@ function Login() {
     try {
       const user = await authService.login(normalizedEmail, password);
       if (user) {
-        login(user);
+        login(user, rememberMe);
         navigate("/");
       } else {
         setError("Invalid email or password");
@@ -110,7 +111,12 @@ function Login() {
             {/* Remember Me & Forgot Password */}
             <div className="form-options">
               <label className="remember-me">
-                <input type="checkbox" className="checkbox" />
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                />
                 <span className="remember-label">Remember me</span>
               </label>
               <a href="#" className="forgot-password">
