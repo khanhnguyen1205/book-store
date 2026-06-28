@@ -145,6 +145,18 @@
   color: #444;
   font-weight: 500;
   white-space: nowrap;
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.lg-nav-greeting:hover {
+  color: #3333bb;
+  background: rgba(51, 51, 187, 0.08);
 }
 
 .lg-nav-auth {

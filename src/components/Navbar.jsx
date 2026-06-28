@@ -52,7 +52,16 @@ export default function Navbar({ search, onSearchChange }) {
           </svg>
           {cartItemCount > 0 && <div className="lg-cart-badge">{cartItemCount}</div>}
         </div>
-        {user && <span className="lg-nav-greeting">Hi, {firstName}</span>}
+        {user && (
+          <button
+            type="button"
+            className="lg-nav-greeting"
+            onClick={() => navigate('/profile')}
+            title="Manage your account"
+          >
+            Hi, {firstName}
+          </button>
+        )}
         <button className="lg-nav-auth" onClick={handleAuthClick}>
           {user ? 'Sign Out' : 'Sign In'}
         </button>

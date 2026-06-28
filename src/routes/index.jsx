@@ -3,6 +3,7 @@ import BookList from '../features/book/BookList';
 import BookDetail from '../features/book/BookDetail';
 import Login from '../features/auth/Login';
 import Register from '../features/auth/Register';
+import Profile from '../features/auth/Profile';
 import ProtectedRoute from './ProtectedRoute';
 import Cart from '../features/cart/Cart';
 
@@ -14,6 +15,7 @@ const AppRoutes = () => {
             <Route path="/" element={<BookList />} />
             <Route path="/book/:id" element={<BookDetail />} />
             <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     );

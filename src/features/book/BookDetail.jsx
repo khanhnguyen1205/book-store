@@ -6,72 +6,6 @@ import { useCart } from "../cart/CartContext";
 import Navbar from "../../components/Navbar";
 import "./BookDetail.css";
 
-const RelatedCover1 = () => (
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <rect width="200" height="200" fill="#2a2a3a" />
-        <ellipse cx="100" cy="90" rx="50" ry="60" fill="#3a3a50" />
-        <ellipse cx="100" cy="70" rx="35" ry="40" fill="#4a4060" />
-        <circle cx="100" cy="60" r="20" fill="#5a5070" />
-        <ellipse cx="95" cy="58" rx="6" ry="8" fill="#c08030" opacity="0.8" />
-        <ellipse cx="108" cy="58" rx="6" ry="8" fill="#c08030" opacity="0.8" />
-    </svg>
-);
-
-const RelatedCover2 = () => (
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <rect width="200" height="200" fill="#1a0f05" />
-        <rect x="20" y="30" width="160" height="140" fill="#2a1a08" rx="2" />
-        {[0, 1, 2, 3, 4, 5, 6].map(i => (
-            <rect key={i} x={28 + i * 20} y="40" width="14" height="110" fill={`hsl(30,${40 + i * 5}%,${18 + i * 3}%)`} rx="1" />
-        ))}
-        <rect x="20" y="130" width="160" height="10" fill="#0a0805" opacity="0.6" />
-        <circle cx="100" cy="160" r="12" fill="#c8a030" opacity="0.9" />
-        <rect x="60" y="155" width="80" height="30" fill="#0f0a05" rx="2" />
-        <line x1="40" y1="158" x2="160" y2="158" stroke="#3a2a10" strokeWidth="1" />
-    </svg>
-);
-
-const RelatedCover3 = () => (
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <rect width="200" height="200" fill="#0f1520" />
-        <defs>
-            <pattern id="rain" width="10" height="20" patternUnits="userSpaceOnUse">
-                <line x1="5" y1="0" x2="3" y2="20" stroke="#6688aa" strokeWidth="0.5" opacity="0.5" />
-            </pattern>
-        </defs>
-        <rect width="200" height="200" fill="url(#rain)" opacity="0.3" />
-        <ellipse cx="100" cy="100" rx="45" ry="60" fill="#1a2535" />
-        <ellipse cx="100" cy="80" rx="28" ry="32" fill="#253040" />
-        <path d="M75 75 Q100 55 125 75 Q110 90 100 88 Q90 90 75 75Z" fill="#304050" />
-    </svg>
-);
-
-const RelatedCover4 = () => (
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <rect width="200" height="200" fill="#0d0d18" />
-        <circle cx="100" cy="40" r="30" fill="#1a1a2e" />
-        <ellipse cx="100" cy="38" rx="18" ry="20" fill="#252538" />
-        <path d="M70 80 Q100 65 130 80 L135 160 Q100 170 65 160Z" fill="#1a1a2e" />
-        <rect x="80" y="78" width="40" height="50" fill="#252538" />
-        <line x1="85" y1="78" x2="85" y2="128" stroke="#0d0d18" strokeWidth="1" />
-        <line x1="115" y1="78" x2="115" y2="128" stroke="#0d0d18" strokeWidth="1" />
-        <circle cx="92" cy="38" r="4" fill="#33ccee" opacity="0.9" />
-        <circle cx="110" cy="38" r="4" fill="#33ccee" opacity="0.9" />
-    </svg>
-);
-
-// Default book data — replace with props or API fetch as needed
-const defaultBook = {
-    title: "The Cartographer of Lost Places",
-    author: "Elena V. Moretti",
-    category: "Literary Fiction",
-    price: 28.90,
-    sold: 1240,
-    stock: 12,
-    age: 16,
-    image: null,
-};
-
 export default function BookDetail() {
     const { id } = useParams();
     const [book, setBook] = useState(null);
@@ -80,8 +14,8 @@ export default function BookDetail() {
     const [qty, setQty] = useState(1);
     const [relatedBooks, setRelatedBooks] = useState([]);
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
-    const { cart, addToCart } = useCart();
+    const { user } = useAuth();
+    const { addToCart } = useCart();
 
     useEffect(() => {
         const fetchBook = async () => {

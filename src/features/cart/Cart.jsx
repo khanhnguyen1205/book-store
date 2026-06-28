@@ -6,42 +6,6 @@ import { calculateSubtotal, calculateTax, formatPrice } from "./cartUtils";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 
-/* ── SVG Book Covers ── */
-const Cover1 = () => (
-    <svg viewBox="0 0 88 110" xmlns="http://www.w3.org/2000/svg">
-        <rect width="88" height="110" fill="#0d1520" />
-        <circle cx="44" cy="35" r="22" fill="#1a2535" />
-        <circle cx="44" cy="30" r="14" fill="#253045" />
-        <ellipse cx="44" cy="28" rx="8" ry="10" fill="#303a50" />
-        <path d="M20 70 Q44 55 68 70 L70 95 Q44 100 18 95Z" fill="#1a2535" />
-        <text x="44" y="107" textAnchor="middle" fontSize="5" fill="#4a5a70" fontFamily="sans-serif" letterSpacing="1">THE ART OF SILENCE</text>
-    </svg>
-);
-
-const Cover2 = () => (
-    <svg viewBox="0 0 88 110" xmlns="http://www.w3.org/2000/svg">
-        <rect width="88" height="110" fill="#0f1a10" />
-        <rect x="0" y="50" width="88" height="60" fill="#0a1208" />
-        <path d="M0 50 Q22 35 44 42 Q66 35 88 50" fill="#1a2a1a" />
-        <path d="M15 55 Q30 25 44 40 Q58 25 73 55" fill="none" stroke="#2a4a2a" strokeWidth="1" />
-        <circle cx="44" cy="38" r="6" fill="#c8d8a0" opacity="0.3" />
-        <line x1="44" y1="0" x2="44" y2="38" stroke="#3a5a3a" strokeWidth="0.5" opacity="0.5" />
-        <text x="44" y="107" textAnchor="middle" fontSize="5" fill="#3a5a3a" fontFamily="sans-serif" letterSpacing="1">ECHOES OF THE FOREST</text>
-    </svg>
-);
-
-const Cover3 = () => (
-    <svg viewBox="0 0 88 110" xmlns="http://www.w3.org/2000/svg">
-        <rect width="88" height="110" fill="#2a1a3a" />
-        <ellipse cx="44" cy="55" rx="32" ry="38" fill="#3a2a50" />
-        <ellipse cx="44" cy="50" rx="20" ry="25" fill="#4a3a60" />
-        <path d="M28 72 Q34 65 40 70 Q44 74 48 70 Q54 65 60 72" fill="none" stroke="#9070c0" strokeWidth="1.5" opacity="0.7" />
-        <path d="M32 78 Q36 73 44 76 Q52 73 56 78" fill="none" stroke="#9070c0" strokeWidth="1" opacity="0.5" />
-        <path d="M36 84 Q40 81 44 83 Q48 81 52 84" fill="none" stroke="#9070c0" strokeWidth="0.8" opacity="0.4" />
-        <text x="44" y="107" textAnchor="middle" fontSize="5" fill="#9070c0" fontFamily="sans-serif" letterSpacing="1">THE LAVENDER JOURNALS</text>
-    </svg>
-);
-
 /* ── Shoe illustration placeholder for upsell ── */
 const ShoeIllustration = () => (
     <svg viewBox="0 0 140 120" xmlns="http://www.w3.org/2000/svg" width="140" height="120">

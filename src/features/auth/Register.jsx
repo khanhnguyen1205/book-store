@@ -190,24 +190,10 @@ const IconAt = () => (
     </svg>
 );
 
-const IconCalendar = () => (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <rect x="1.5" y="3" width="13" height="11" rx="2" stroke="#bbb" strokeWidth="1.3" />
-        <path d="M5 1.5v3M11 1.5v3M1.5 7h13" stroke="#bbb" strokeWidth="1.3" strokeLinecap="round" />
-    </svg>
-);
-
 const IconLock = () => (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <rect x="3" y="7" width="10" height="8" rx="1.5" stroke="#bbb" strokeWidth="1.3" />
         <path d="M5 7V5a3 3 0 0 1 6 0v2" stroke="#bbb" strokeWidth="1.3" strokeLinecap="round" />
-    </svg>
-);
-
-const IconPin = () => (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5z" stroke="#bbb" strokeWidth="1.3" />
-        <circle cx="8" cy="6" r="1.5" stroke="#bbb" strokeWidth="1.3" />
     </svg>
 );
 
