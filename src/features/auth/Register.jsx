@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
+import {
+    validateFullName,
+    validateEmail,
+    validatePassword,
+    validateConfirm,
+    passwordStrength,
+    STRENGTH_LABELS,
+    STRENGTH_COLORS,
+} from "./validation";
 
 const styles = `
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -83,6 +92,7 @@ const styles = `
 
   .ca-input-row input {
     flex: 1;
+    min-width: 0;
     border: none;
     outline: none;
     font-size: 14px;
@@ -93,12 +103,48 @@ const styles = `
 
   .ca-input-row input::placeholder { color: #bbb; }
 
+  .ca-eye {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .ca-eye:hover { color: #888; }
+
+  .ca-error { color: #e24b4a; font-size: 12px; margin-top: 4px; }
+
+  /* Thanh hiển thị độ mạnh mật khẩu */
+  .ca-strength { margin: -0.5rem 0 1.5rem; }
+  .ca-strength-bars { display: flex; gap: 6px; }
+  .ca-strength-seg {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: #e8e8ee;
+    transition: background 0.2s ease;
+  }
+  .ca-strength-label {
+    font-size: 11px;
+    margin-top: 6px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .ca-btn-create:disabled { opacity: 0.55; cursor: not-allowed; }
+
   .ca-two-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     margin-bottom: 1.5rem;
   }
+
+  /* Cho phép ô trong grid co lại, tránh tràn cột làm lệch nút con mắt */
+  .ca-two-col > .ca-field { min-width: 0; }
 
   .ca-dots {
     font-size: 18px;
@@ -197,67 +243,67 @@ const IconLock = () => (
     </svg>
 );
 
+const IconEye = ({ off }) => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+        {off && <line x1="3" y1="3" x2="21" y2="21" />}
+    </svg>
+);
+
 export default function CreateAccount() {
     const navigate = useNavigate();
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [errors, setErrors] = useState({});
+    const [touched, setTouched] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [emailTaken, setEmailTaken] = useState(false);
+    const [generalError, setGeneralError] = useState("");
     const [loading, setLoading] = useState(false);
     const [successMsg, setSuccessMsg] = useState("");
 
-    const validate = () => {
-        const newErrors = {};
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        
-        if (!fullName.trim()) {
-            newErrors.fullName = "Full Name is required";
-        }
-
-        if (!email) {
-            newErrors.email = "Email is required";
-        } else if (!emailRegex.test(email)) {
-            newErrors.email = "Invalid email format";
-        }
-
-        if (!password) {
-            newErrors.password = "Password is required";
-        } else if (password.length < 6) {
-            newErrors.password = "Minimum 6 characters";
-        }
-
-        if (!confirmPassword) {
-            newErrors.confirmPassword = "Confirmation is required";
-        } else if (confirmPassword !== password) {
-            newErrors.confirmPassword = "Passwords do not match";
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+    // Lỗi được tính lại mỗi lần render dựa trên giá trị hiện tại.
+    const errors = {
+        fullName: validateFullName(fullName),
+        email: validateEmail(email) || (emailTaken ? "Email already exists" : ""),
+        password: validatePassword(password),
+        confirmPassword: validateConfirm(password, confirmPassword),
     };
+    const isFormValid = !Object.values(errors).some(Boolean);
+    const strength = passwordStrength(password);
+
+    // Chỉ hiện lỗi của ô đã được "chạm" (rời ô) hoặc sau khi bấm submit.
+    const showError = (field) => (touched[field] ? errors[field] : "");
+
+    const markTouched = (field) => setTouched((prev) => ({ ...prev, [field]: true }));
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccessMsg("");
-        setErrors({});
+        setGeneralError("");
 
-        if (!validate()) return;
+        // Đánh dấu tất cả là touched để lộ mọi lỗi còn lại.
+        setTouched({ fullName: true, email: true, password: true, confirmPassword: true });
+        if (!isFormValid) return;
 
         setLoading(true);
         try {
             const normalizedEmail = email.toLowerCase().trim();
 
-            // Check if email exists
+            // Kiểm tra email đã tồn tại chưa.
             const { data: existingAccounts } = await api.get(`/users?email=${normalizedEmail}`);
-            
+
             if (existingAccounts.length > 0) {
-                setErrors({ email: "Email already exists" });
+                setEmailTaken(true);
                 setLoading(false);
                 return;
             }
 
-            // Create new account
+            // Tạo tài khoản mới.
             await api.post('/users', {
                 fullName: fullName.trim(),
                 email: normalizedEmail,
@@ -269,11 +315,11 @@ export default function CreateAccount() {
             setTimeout(() => {
                 navigate("/login");
             }, 1000);
-            
+
         } catch (err) {
             // Lấy thông báo lỗi chi tiết từ server (nếu có) hoặc dùng thông báo mặc định của lỗi
             const errorMessage = err.response?.data?.message || err.message || "An unexpected error occurred.";
-            setErrors({ general: `Registration failed: ${errorMessage}` });
+            setGeneralError(`Registration failed: ${errorMessage}`);
         } finally {
             setLoading(false);
         }
@@ -295,14 +341,15 @@ export default function CreateAccount() {
                             <label className="ca-label">Full Name</label>
                             <div className="ca-input-row">
                                 <IconUser />
-                                <input 
-                                    type="text" 
-                                    placeholder="Julian Thorne" 
+                                <input
+                                    type="text"
+                                    placeholder="Julian Thorne"
                                     value={fullName}
                                     onChange={(e) => setFullName(e.target.value)}
+                                    onBlur={() => markTouched("fullName")}
                                 />
                             </div>
-                            {errors.fullName && <div style={{ color: "#e24b4a", fontSize: "12px", marginTop: "4px" }}>{errors.fullName}</div>}
+                            {showError("fullName") && <div className="ca-error">{showError("fullName")}</div>}
                         </div>
 
                         {/* Email Address */}
@@ -310,14 +357,15 @@ export default function CreateAccount() {
                             <label className="ca-label">Email Address</label>
                             <div className="ca-input-row">
                                 <IconAt />
-                                <input 
-                                    type="email" 
-                                    placeholder="julian@atelier.com" 
+                                <input
+                                    type="email"
+                                    placeholder="julian@atelier.com"
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={(e) => { setEmail(e.target.value); setEmailTaken(false); }}
+                                    onBlur={() => markTouched("email")}
                                 />
                             </div>
-                            {errors.email && <div style={{ color: "#e24b4a", fontSize: "12px", marginTop: "4px" }}>{errors.email}</div>}
+                            {showError("email") && <div className="ca-error">{showError("email")}</div>}
                         </div>
 
                         {/* Password + Confirm Password */}
@@ -326,36 +374,66 @@ export default function CreateAccount() {
                                 <label className="ca-label">Password</label>
                                 <div className="ca-input-row">
                                     <IconLock />
-                                    <input 
-                                        type="password" 
-                                        placeholder="••••••••" 
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="••••••••"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
+                                        onBlur={() => markTouched("password")}
                                     />
+                                    <button type="button" className="ca-eye"
+                                        aria-label="Toggle password visibility"
+                                        onClick={() => setShowPassword((v) => !v)}>
+                                        <IconEye off={showPassword} />
+                                    </button>
                                 </div>
-                                {errors.password && <div style={{ color: "#e24b4a", fontSize: "12px", marginTop: "4px" }}>{errors.password}</div>}
+                                {showError("password") && <div className="ca-error">{showError("password")}</div>}
                             </div>
                             <div className="ca-field" style={{ marginBottom: 0 }}>
                                 <label className="ca-label">Confirm Password</label>
                                 <div className="ca-input-row">
                                     <IconLock />
-                                    <input 
-                                        type="password" 
-                                        placeholder="••••••••" 
+                                    <input
+                                        type={showConfirm ? "text" : "password"}
+                                        placeholder="••••••••"
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
+                                        onBlur={() => markTouched("confirmPassword")}
                                     />
+                                    <button type="button" className="ca-eye"
+                                        aria-label="Toggle confirm password visibility"
+                                        onClick={() => setShowConfirm((v) => !v)}>
+                                        <IconEye off={showConfirm} />
+                                    </button>
                                 </div>
-                                {errors.confirmPassword && <div style={{ color: "#e24b4a", fontSize: "12px", marginTop: "4px" }}>{errors.confirmPassword}</div>}
+                                {showError("confirmPassword") && <div className="ca-error">{showError("confirmPassword")}</div>}
                             </div>
                         </div>
 
+                        {/* Thanh độ mạnh mật khẩu */}
+                        {password && (
+                            <div className="ca-strength">
+                                <div className="ca-strength-bars">
+                                    {[1, 2, 3, 4].map((seg) => (
+                                        <div
+                                            key={seg}
+                                            className="ca-strength-seg"
+                                            style={{ background: seg <= strength ? STRENGTH_COLORS[strength] : "#e8e8ee" }}
+                                        />
+                                    ))}
+                                </div>
+                                <div className="ca-strength-label" style={{ color: STRENGTH_COLORS[strength] }}>
+                                    {STRENGTH_LABELS[strength]}
+                                </div>
+                            </div>
+                        )}
+
                         <div className="ca-divider" />
 
-                        {errors.general && <div style={{ color: "#e24b4a", fontSize: "14px", marginBottom: "1rem", textAlign: "center" }}>{errors.general}</div>}
+                        {generalError && <div style={{ color: "#e24b4a", fontSize: "14px", marginBottom: "1rem", textAlign: "center" }}>{generalError}</div>}
                         {successMsg && <div style={{ color: "#28a745", fontSize: "14px", marginBottom: "1rem", textAlign: "center" }}>{successMsg}</div>}
 
-                        <button type="submit" className="ca-btn-create" disabled={loading}>
+                        <button type="submit" className="ca-btn-create" disabled={loading || !isFormValid}>
                             {loading ? "Creating..." : "Create Account"}
                         </button>
 

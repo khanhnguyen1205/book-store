@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { authService } from "./authService";
 import { useAuth } from "./AuthContext";
+import { validateEmail, validateLoginPassword } from "./validation";
 import "./Login.css";
 
 function Login() {
@@ -12,14 +13,29 @@ function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [touched, setTouched] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Lỗi từng ô được tính lại mỗi lần render.
+  const errors = {
+    email: validateEmail(email),
+    password: validateLoginPassword(password),
+  };
+  const isFormValid = !Object.values(errors).some(Boolean);
+
+  const showError = (field) => (touched[field] ? errors[field] : "");
+  const markTouched = (field) => setTouched((prev) => ({ ...prev, [field]: true }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
 
+    // Lộ mọi lỗi còn lại khi bấm submit.
+    setTouched({ email: true, password: true });
+    if (!isFormValid) return;
+
+    setLoading(true);
     const normalizedEmail = email.toLowerCase().trim();
 
     try {
@@ -66,8 +82,14 @@ function Login() {
                 placeholder="curator@literarygallery.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onBlur={() => markTouched("email")}
                 required
               />
+              {showError("email") && (
+                <p style={{ color: "#e24b4a", fontSize: "0.78rem", margin: "6px 0 0" }}>
+                  {showError("email")}
+                </p>
+              )}
             </div>
 
             {/* Password Field */}
@@ -82,6 +104,7 @@ function Login() {
                   className="form-input"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onBlur={() => markTouched("password")}
                   required
                 />
                 <button
@@ -106,6 +129,11 @@ function Login() {
                   </svg>
                 </button>
               </div>
+              {showError("password") && (
+                <p style={{ color: "#e24b4a", fontSize: "0.78rem", margin: "6px 0 0" }}>
+                  {showError("password")}
+                </p>
+              )}
             </div>
 
             {/* Remember Me & Forgot Password */}
@@ -132,7 +160,7 @@ function Login() {
             )}
 
             {/* Sign In Button */}
-            <button type="submit" className="btn-signin" disabled={loading}>
+            <button type="submit" className="btn-signin" disabled={loading || !isFormValid}>
               {loading ? "Signing in..." : "Sign In"}
             </button>
           </form>
