@@ -101,6 +101,19 @@
   gap: 8px;
   margin-bottom: 1rem;
 }
+.cart-checkout-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.cart-checkout-note {
+  font-size: 12px;
+  color: #5555aa;
+  background: #f0f0fa;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
 .cart-premium-note {
   display: flex;
   gap: 10px;
@@ -134,94 +147,11 @@
   color: #111;
   margin-bottom: 1.25rem;
 }
-.cart-upsell-grid {
+.cart-rec-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
 }
-.cart-upsell-promo {
-  background: #f7f7fc;
-  border: 0.5px solid #e8e8ee;
-  border-radius: 14px;
-  padding: 1.75rem;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  overflow: hidden;
-  min-height: 200px;
-}
-.cart-upsell-promo-text { flex: 1; }
-.cart-upsell-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #5555aa;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-.cart-upsell-title {
-  font-family: Georgia, serif;
-  font-size: 22px;
-  font-style: italic;
-  color: #111;
-  line-height: 1.25;
-  margin-bottom: 10px;
-}
-.cart-upsell-desc {
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 14px;
-  line-height: 1.5;
-}
-.cart-upsell-link {
-  font-size: 13px;
-  color: #3333cc;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.cart-upsell-img {
-  width: 140px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-.cart-member-card {
-  background: #3333cc;
-  border-radius: 14px;
-  padding: 1.75rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 200px;
-}
-.cart-member-icon { margin-bottom: 12px; }
-.cart-member-title {
-  font-family: Georgia, serif;
-  font-size: 20px;
-  font-style: italic;
-  color: white;
-  margin-bottom: 8px;
-}
-.cart-member-desc {
-  font-size: 13px;
-  color: #cccce8;
-  line-height: 1.5;
-  margin-bottom: 1.25rem;
-  flex: 1;
-}
-.cart-member-btn {
-  background: white;
-  color: #3333cc;
-  border: none;
-  border-radius: 8px;
-  padding: 11px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  width: 100%;
-}
+.cart-rec-item { cursor: pointer; }
 
 /* Footer dùng chung từ src/components/Footer.css */

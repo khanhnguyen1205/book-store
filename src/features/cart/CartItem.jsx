@@ -9,7 +9,7 @@ export default function CartItem({ item }) {
     return (
         <div className="cart-item">
             <div className="cart-item-cover">
-                {item.cover ? item.cover : item.image ? <img src={item.image} alt={item.title} /> : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555', fontSize: 10 }}>No Cover</div>}
+                {item.image ? <img src={item.image} alt={item.title} /> : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555', fontSize: 10 }}>No Cover</div>}
             </div>
             <div className="cart-item-info">
                 <div className="cart-item-title">{item.title}</div>
