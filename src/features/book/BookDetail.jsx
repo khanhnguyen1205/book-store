@@ -14,6 +14,7 @@ export default function BookDetail() {
     const [error, setError] = useState(null);
     const [qty, setQty] = useState(1);
     const [relatedBooks, setRelatedBooks] = useState([]);
+    const [buyNote, setBuyNote] = useState("");
     const navigate = useNavigate();
     const { user } = useAuth();
     const { addToCart } = useCart();
@@ -142,8 +143,15 @@ export default function BookDetail() {
                                 addToCart({ ...book, quantity: qty });
                             }
                         }}>Add to Cart</button>
-                        <button className="bd-btn-buy" onClick={() => { if (!user) navigate('/login'); }}>Buy Now</button>
+                        <button className="bd-btn-buy" onClick={() => {
+                            if (!user) {
+                                navigate('/login');
+                            } else {
+                                setBuyNote("Instant checkout is coming soon — use Add to Cart for now.");
+                            }
+                        }}>Buy Now</button>
                     </div>
+                    {buyNote && <div className="bd-buy-note">{buyNote}</div>}
                 </div>
             </section>
 
