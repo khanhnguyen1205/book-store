@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { bookService } from "./bookService";
 import { useAuth } from "../auth/AuthContext";
 import { useCart } from "../cart/CartContext";
+import { getAge, meetsAgeRequirement } from "../../utils/age";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import "./BookDetail.css";
@@ -59,6 +60,11 @@ export default function BookDetail() {
     }
 
     const displayPrice = typeof book.price === 'number' ? `$${(book.price / 1000).toFixed(2)}` : book.price;
+
+    // Giới hạn độ tuổi: chỉ chặn khi user đã đăng nhập và chưa đủ tuổi.
+    const minAge = book.age || 0;
+    const isRestricted = user ? !meetsAgeRequirement(user, minAge) : false;
+    const userAge = getAge(user?.dateOfBirth);
 
     return (
         <div className="bd-wrap">
@@ -136,14 +142,14 @@ export default function BookDetail() {
                             <div className="bd-qty-val">{qty}</div>
                             <button className="bd-qty-btn" onClick={() => setQty(q => q + 1)}>+</button>
                         </div>
-                        <button className="bd-btn-cart" onClick={() => { 
+                        <button className="bd-btn-cart" disabled={isRestricted} onClick={() => {
                             if (!user) {
                                 navigate('/login');
                             } else {
                                 addToCart({ ...book, quantity: qty });
                             }
                         }}>Add to Cart</button>
-                        <button className="bd-btn-buy" onClick={() => {
+                        <button className="bd-btn-buy" disabled={isRestricted} onClick={() => {
                             if (!user) {
                                 navigate('/login');
                             } else {
@@ -151,7 +157,25 @@ export default function BookDetail() {
                             }
                         }}>Buy Now</button>
                     </div>
-                    {buyNote && <div className="bd-buy-note">{buyNote}</div>}
+                    {isRestricted ? (
+                        <div className="bd-age-block" role="alert">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M12 3 3 19h18L12 3Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+                                <path d="M12 10v4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                                <circle cx="12" cy="16.5" r="0.4" fill="currentColor" stroke="currentColor" strokeWidth="0.9" />
+                            </svg>
+                            <div>
+                                <strong>Age-restricted title — {minAge}+</strong>
+                                <p>
+                                    This book is intended for readers aged {minAge} and over. Your account
+                                    {userAge !== null ? ` (age ${userAge})` : ""} does not meet the minimum age,
+                                    so it can’t be added to your cart or purchased.
+                                </p>
+                            </div>
+                        </div>
+                    ) : (
+                        buyNote && <div className="bd-buy-note">{buyNote}</div>
+                    )}
                 </div>
             </section>
 

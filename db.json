@@ -217,21 +217,32 @@
       "fullName": "Admin User",
       "email": "admin@literarygallery.com",
       "password": "admin123",
-      "role": "admin"
+      "role": "admin",
+      "dateOfBirth": "1985-05-20"
     },
     {
       "id": 2,
       "fullName": "Nguyen Van Khanh",
       "email": "khanh@gmail.com",
       "password": "123456",
-      "role": "user"
+      "role": "user",
+      "dateOfBirth": "2000-03-15"
     },
     {
       "id": 3,
       "fullName": "Jane Smith",
       "email": "jane@gmail.com",
       "password": "123456",
-      "role": "user"
+      "role": "user",
+      "dateOfBirth": "2013-06-10"
+    },
+    {
+      "fullName": "Nguyễn Hoành Quân",
+      "email": "quan@gmail.com",
+      "password": "abc123456",
+      "role": "user",
+      "id": 4,
+      "dateOfBirth": "1999-09-09"
     }
   ],
   "subscribers": []

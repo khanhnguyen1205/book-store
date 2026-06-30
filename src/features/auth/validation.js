@@ -39,6 +39,26 @@ export function validateLoginPassword(password) {
   return "";
 }
 
+/**
+ * Ngày sinh: bắt buộc, phải là ngày thật, không nằm ở tương lai,
+ * và tuổi trong khoảng hợp lý (0–120).
+ */
+export function validateDateOfBirth(dob) {
+  if (!dob) return "Date of birth is required";
+
+  const date = new Date(dob);
+  if (isNaN(date.getTime())) return "Invalid date";
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  if (date > today) return "Date of birth cannot be in the future";
+
+  const age = today.getFullYear() - date.getFullYear();
+  if (age > 120) return "Please enter a valid date of birth";
+
+  return "";
+}
+
 /** Xác nhận mật khẩu: bắt buộc + khớp với mật khẩu. */
 export function validateConfirm(password, confirm) {
   if (!confirm) return "Confirmation is required";

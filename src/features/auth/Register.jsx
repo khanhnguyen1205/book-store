@@ -4,6 +4,7 @@ import api from "../../services/api";
 import {
     validateFullName,
     validateEmail,
+    validateDateOfBirth,
     validatePassword,
     validateConfirm,
     passwordStrength,
@@ -236,6 +237,13 @@ const IconAt = () => (
     </svg>
 );
 
+const IconCalendar = () => (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <rect x="2.5" y="3.5" width="11" height="10" rx="1.5" stroke="#bbb" strokeWidth="1.3" />
+        <path d="M2.5 6.5h11M5.5 2v3M10.5 2v3" stroke="#bbb" strokeWidth="1.3" strokeLinecap="round" />
+    </svg>
+);
+
 const IconLock = () => (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <rect x="3" y="7" width="10" height="8" rx="1.5" stroke="#bbb" strokeWidth="1.3" />
@@ -256,6 +264,7 @@ export default function CreateAccount() {
     const navigate = useNavigate();
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
+    const [dateOfBirth, setDateOfBirth] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [touched, setTouched] = useState({});
@@ -270,6 +279,7 @@ export default function CreateAccount() {
     const errors = {
         fullName: validateFullName(fullName),
         email: validateEmail(email) || (emailTaken ? "Email already exists" : ""),
+        dateOfBirth: validateDateOfBirth(dateOfBirth),
         password: validatePassword(password),
         confirmPassword: validateConfirm(password, confirmPassword),
     };
@@ -287,7 +297,7 @@ export default function CreateAccount() {
         setGeneralError("");
 
         // Đánh dấu tất cả là touched để lộ mọi lỗi còn lại.
-        setTouched({ fullName: true, email: true, password: true, confirmPassword: true });
+        setTouched({ fullName: true, email: true, dateOfBirth: true, password: true, confirmPassword: true });
         if (!isFormValid) return;
 
         setLoading(true);
@@ -307,6 +317,7 @@ export default function CreateAccount() {
             await api.post('/users', {
                 fullName: fullName.trim(),
                 email: normalizedEmail,
+                dateOfBirth,
                 password,
                 role: "user"
             });
@@ -366,6 +377,22 @@ export default function CreateAccount() {
                                 />
                             </div>
                             {showError("email") && <div className="ca-error">{showError("email")}</div>}
+                        </div>
+
+                        {/* Date of Birth — dùng để kiểm tra giới hạn độ tuổi khi mua sách */}
+                        <div className="ca-field">
+                            <label className="ca-label">Date of Birth</label>
+                            <div className="ca-input-row">
+                                <IconCalendar />
+                                <input
+                                    type="date"
+                                    max={new Date().toISOString().split("T")[0]}
+                                    value={dateOfBirth}
+                                    onChange={(e) => setDateOfBirth(e.target.value)}
+                                    onBlur={() => markTouched("dateOfBirth")}
+                                />
+                            </div>
+                            {showError("dateOfBirth") && <div className="ca-error">{showError("dateOfBirth")}</div>}
                         </div>
 
                         {/* Password + Confirm Password */}
