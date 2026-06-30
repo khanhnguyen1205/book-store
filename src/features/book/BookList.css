@@ -5,7 +5,7 @@
   .lg-hero-eyebrow { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5555aa; margin-bottom: 1rem; font-weight: 500; }
   .lg-hero-title { font-family: Georgia, serif; font-size: 48px; line-height: 1.1; margin-bottom: 0.5rem; color: #111; }
   .lg-hero-title em { color: #4444cc; font-style: italic; }
-  .lg-hero-desc { font-size: 14px; color: #666; line-height: 1.6; max-width: 340px; margin: 1rem 0 1.5rem; }
+  .lg-hero-desc { font-size: 14px; color: #666; line-height: 1.6; max-width: 340px; margin: 1rem 0 1.5rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .lg-btn-primary { background: #3333bb; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-size: 13px; cursor: pointer; }
   .lg-btn-secondary { background: transparent; color: #111; border: 0.5px solid #ccc; padding: 10px 20px; border-radius: 20px; font-size: 13px; cursor: pointer; }
   .lg-hero-book-wrap { width: 220px; flex-shrink: 0; }

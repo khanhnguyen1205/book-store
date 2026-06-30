@@ -66,6 +66,20 @@ export default function BookDetail() {
     const isRestricted = user ? !meetsAgeRequirement(user, minAge) : false;
     const userAge = getAge(user?.dateOfBirth);
 
+    // Đánh giá thật từ dữ liệu sách.
+    const ratingValue = Number(book.rating) || 0;
+    const reviewCount = Number(book.reviews) || 0;
+
+    // Thông số sách (Product Details) — chỉ hiện field nào có dữ liệu.
+    const productDetails = [
+        { label: "Publisher", value: book.publisher },
+        { label: "Published", value: book.publishedYear },
+        { label: "Language", value: book.language },
+        { label: "Print length", value: book.pages ? `${book.pages} pages` : null },
+        { label: "ISBN", value: book.isbn },
+        { label: "Category", value: book.category },
+    ].filter((row) => row.value);
+
     return (
         <div className="bd-wrap">
             <Navbar />
@@ -182,40 +196,44 @@ export default function BookDetail() {
             {/* Narrative + Sentiment */}
             <section className="bd-narrative-section">
                 <div className="bd-narrative">
-                    <h2>The Narrative</h2>
-                    <p>{book.description}</p>
-                    <div className="bd-pub-row">
-                        <div className="bd-pub-item">
-                            <div className="bd-pub-label">Publisher</div>
-                            <div className="bd-pub-value">L'Atelier Press</div>
-                        </div>
-                        <div className="bd-pub-item">
-                            <div className="bd-pub-label">Language</div>
-                            <div className="bd-pub-value">English (Traditional)</div>
-                        </div>
+                    <h2>About this Book</h2>
+                    {String(book.description || "")
+                        .split("\n\n")
+                        .filter(Boolean)
+                        .map((para, i) => (
+                            <p key={i}>{para}</p>
+                        ))}
+
+                    <h3 className="bd-details-title">Product Details</h3>
+                    <div className="bd-details-grid">
+                        {productDetails.map((row) => (
+                            <div className="bd-detail-item" key={row.label}>
+                                <div className="bd-detail-label">{row.label}</div>
+                                <div className="bd-detail-value">{row.value}</div>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
                 <div className="bd-right-col">
-                    <div className="bd-sentiment-card">
-                        <div className="bd-sentiment-header">
-                            <h3>Reader Sentiment</h3>
-                            <span className="bd-stars">★★★★★</span>
+                    <div className="bd-rating-card">
+                        <h3 className="bd-rating-heading">Customer Reviews</h3>
+                        <div className="bd-rating-summary">
+                            <div className="bd-rating-score">{ratingValue.toFixed(1)}</div>
+                            <div>
+                                <div className="bd-stars-track" aria-label={`${ratingValue} out of 5 stars`}>
+                                    <span className="bd-stars-empty">★★★★★</span>
+                                    <span className="bd-stars-fill" style={{ width: `${(ratingValue / 5) * 100}%` }}>★★★★★</span>
+                                </div>
+                                <div className="bd-rating-count">{reviewCount.toLocaleString()} global ratings</div>
+                            </div>
                         </div>
-                        <div className="bd-review">
-                            <p>"A hauntingly beautiful exploration of nostalgia. The prose is as fluid as the waters of Venice itself."</p>
-                            <cite>— Julian Thorne, Literary Review</cite>
-                        </div>
-                        <div className="bd-review">
-                            <p>"Moretti's world-building is second to none. I felt the mist on my skin through every sentence."</p>
-                            <cite>— Sarah Jenkins, Verified Purchase</cite>
-                        </div>
-                        <span className="bd-read-all">Read all 480 reviews</span>
+                        <div className="bd-rating-out">out of 5</div>
                     </div>
 
                     <div className="bd-bookclub-card">
                         <h4>Book Club Pick</h4>
-                        <p>Join 4,000 readers discussing this title this month in the Gallery Lounge.</p>
+                        <p>Join {(book.sold || 0).toLocaleString()} readers who have added this title to their collection.</p>
                         <button className="bd-join-btn">JOIN SESSION</button>
                     </div>
                 </div>

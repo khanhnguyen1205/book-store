@@ -42,7 +42,7 @@ function SlideContent({ book, rank }) {
         >
           {book.title}
         </h1>
-        <p className="lg-hero-desc">{book.description}</p>
+        <p className="lg-hero-desc">{String(book.description || '').split('\n\n')[0]}</p>
         <div style={{ display: 'flex', gap: 16, marginBottom: '1rem', fontSize: 13, color: '#888' }}>
           <span>⭐ {book.rating}</span>
           <span>{book.sold?.toLocaleString()} sold</span>
