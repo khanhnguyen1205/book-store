@@ -52,6 +52,14 @@
   margin-bottom: 28px;
 }
 
+.login-brand-link {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.15s ease;
+}
+.login-brand-link:hover { opacity: 0.7; }
+
 .login-brand {
   font-family: "Playfair Display", serif;
   font-style: italic;

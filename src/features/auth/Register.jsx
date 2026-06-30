@@ -40,6 +40,13 @@ const styles = `
     box-shadow: 0 4px 40px rgba(80, 60, 180, 0.07);
   }
 
+  .ca-brand-link {
+    display: block;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+  .ca-brand-link:hover { opacity: 0.7; }
+
   .ca-brand {
     text-align: center;
     font-family: Georgia, serif;
@@ -342,7 +349,9 @@ export default function CreateAccount() {
 
             <main className="ca-main">
                 <div className="ca-card">
-                    <div className="ca-brand">The Literary Gallery</div>
+                    <Link to="/" className="ca-brand-link" title="Back to store">
+                        <div className="ca-brand">The Literary Gallery</div>
+                    </Link>
                     <h1 className="ca-heading">Create Account</h1>
                     <p className="ca-subheading">Welcome to our digital atelier.</p>
 

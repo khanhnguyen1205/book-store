@@ -63,7 +63,9 @@ function Login() {
       <div className="login-wrapper">
         {/* Header */}
         <header className="login-header">
-          <h1 className="login-brand">The Literary Gallery</h1>
+          <Link to="/" className="login-brand-link" title="Back to store">
+            <h1 className="login-brand">The Literary Gallery</h1>
+          </Link>
           <p className="login-subtitle">WELCOME BACK TO THE ATELIER</p>
         </header>
 
