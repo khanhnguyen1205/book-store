@@ -15,7 +15,6 @@ export default function BookDetail() {
     const [error, setError] = useState(null);
     const [qty, setQty] = useState(1);
     const [relatedBooks, setRelatedBooks] = useState([]);
-    const [buyNote, setBuyNote] = useState("");
     const navigate = useNavigate();
     const { user } = useAuth();
     const { addToCart } = useCart();
@@ -167,11 +166,11 @@ export default function BookDetail() {
                             if (!user) {
                                 navigate('/login');
                             } else {
-                                setBuyNote("Instant checkout is coming soon — use Add to Cart for now.");
+                                navigate('/checkout', { state: { buyNow: { ...book, quantity: qty } } });
                             }
                         }}>Buy Now</button>
                     </div>
-                    {isRestricted ? (
+                    {isRestricted && (
                         <div className="bd-age-block" role="alert">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                                 <path d="M12 3 3 19h18L12 3Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
@@ -187,8 +186,6 @@ export default function BookDetail() {
                                 </p>
                             </div>
                         </div>
-                    ) : (
-                        buyNote && <div className="bd-buy-note">{buyNote}</div>
                     )}
                 </div>
             </section>

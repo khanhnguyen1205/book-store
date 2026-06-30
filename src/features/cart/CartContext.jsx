@@ -79,6 +79,11 @@ export const CartProvider = ({ children }) => {
         }));
     };
 
+    // Dọn sạch giỏ (vd sau khi đặt đơn thành công).
+    const clearCart = () => {
+        setCartState((prev) => ({ ...prev, items: [] }));
+    };
+
     const updateQuantity = (id, quantity) => {
         if (quantity < 1) return; // Prevent negative or zero quantity
 
@@ -91,7 +96,7 @@ export const CartProvider = ({ children }) => {
     };
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart }}>
             {children}
         </CartContext.Provider>
     );
