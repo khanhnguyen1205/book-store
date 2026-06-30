@@ -125,6 +125,30 @@ const styles = `
 
   .ca-error { color: #e24b4a; font-size: 12px; margin-top: 4px; }
 
+  /* Ngày sinh: 3 ô chọn Day / Month / Year */
+  .ca-dob-grid { display: grid; grid-template-columns: 0.8fr 1.3fr 1fr; gap: 12px; }
+  .ca-dob-select {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #e8e8ee;
+    background: transparent;
+    padding: 2px 18px 10px 0;
+    font-size: 14px;
+    color: #333;
+    font-family: sans-serif;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23bbb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+    background-size: 12px;
+  }
+  .ca-dob-select:focus { border-bottom-color: #3333cc; }
+  .ca-dob-empty { color: #bbb; }
+
   /* Thanh hiển thị độ mạnh mật khẩu */
   .ca-strength { margin: -0.5rem 0 1.5rem; }
   .ca-strength-bars { display: flex; gap: 6px; }
@@ -244,12 +268,18 @@ const IconAt = () => (
     </svg>
 );
 
-const IconCalendar = () => (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <rect x="2.5" y="3.5" width="11" height="10" rx="1.5" stroke="#bbb" strokeWidth="1.3" />
-        <path d="M2.5 6.5h11M5.5 2v3M10.5 2v3" stroke="#bbb" strokeWidth="1.3" strokeLinecap="round" />
-    </svg>
-);
+// Ngày sinh nhập bằng 3 ô chọn Day / Month / Year (chuẩn UX của FB, Google, PayPal...)
+// — không phải lội lịch về quá khứ, đồng nhất mọi trình duyệt.
+const MONTHS = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+];
+const CURRENT_YEAR = new Date().getFullYear();
+const DOB_YEARS = Array.from({ length: 120 }, (_, i) => CURRENT_YEAR - i);
+
+/** Số ngày của tháng (1-12) trong năm đã chọn; mặc định 31 khi chưa đủ dữ liệu. */
+const daysInMonth = (month, year) =>
+    month ? new Date(Number(year) || 2000, Number(month), 0).getDate() : 31;
 
 const IconLock = () => (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -271,7 +301,7 @@ export default function CreateAccount() {
     const navigate = useNavigate();
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
-    const [dateOfBirth, setDateOfBirth] = useState("");
+    const [dob, setDob] = useState({ day: "", month: "", year: "" });
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [touched, setTouched] = useState({});
@@ -281,6 +311,24 @@ export default function CreateAccount() {
     const [generalError, setGeneralError] = useState("");
     const [loading, setLoading] = useState(false);
     const [successMsg, setSuccessMsg] = useState("");
+
+    // Ghép 3 ô chọn thành ISO "YYYY-MM-DD" (rỗng nếu chưa chọn đủ).
+    const dateOfBirth =
+        dob.day && dob.month && dob.year
+            ? `${dob.year}-${String(dob.month).padStart(2, "0")}-${String(dob.day).padStart(2, "0")}`
+            : "";
+
+    // Đổi 1 phần của ngày sinh; nếu ngày vượt quá số ngày của tháng/năm mới thì bỏ chọn ngày.
+    const changeDob = (field) => (e) => {
+        const value = e.target.value;
+        setDob((prev) => {
+            const next = { ...prev, [field]: value };
+            if (next.day && Number(next.day) > daysInMonth(next.month, next.year)) {
+                next.day = "";
+            }
+            return next;
+        });
+    };
 
     // Lỗi được tính lại mỗi lần render dựa trên giá trị hiện tại.
     const errors = {
@@ -388,18 +436,46 @@ export default function CreateAccount() {
                             {showError("email") && <div className="ca-error">{showError("email")}</div>}
                         </div>
 
-                        {/* Date of Birth — dùng để kiểm tra giới hạn độ tuổi khi mua sách */}
+                        {/* Date of Birth — 3 ô chọn; dùng để kiểm tra giới hạn độ tuổi khi mua sách */}
                         <div className="ca-field">
                             <label className="ca-label">Date of Birth</label>
-                            <div className="ca-input-row">
-                                <IconCalendar />
-                                <input
-                                    type="date"
-                                    max={new Date().toISOString().split("T")[0]}
-                                    value={dateOfBirth}
-                                    onChange={(e) => setDateOfBirth(e.target.value)}
+                            <div className="ca-dob-grid">
+                                <select
+                                    className={`ca-dob-select${dob.day ? "" : " ca-dob-empty"}`}
+                                    value={dob.day}
+                                    onChange={changeDob("day")}
                                     onBlur={() => markTouched("dateOfBirth")}
-                                />
+                                    aria-label="Day of birth"
+                                >
+                                    <option value="" disabled>Day</option>
+                                    {Array.from({ length: daysInMonth(dob.month, dob.year) }, (_, i) => i + 1).map((d) => (
+                                        <option key={d} value={d}>{d}</option>
+                                    ))}
+                                </select>
+                                <select
+                                    className={`ca-dob-select${dob.month ? "" : " ca-dob-empty"}`}
+                                    value={dob.month}
+                                    onChange={changeDob("month")}
+                                    onBlur={() => markTouched("dateOfBirth")}
+                                    aria-label="Month of birth"
+                                >
+                                    <option value="" disabled>Month</option>
+                                    {MONTHS.map((name, i) => (
+                                        <option key={name} value={i + 1}>{name}</option>
+                                    ))}
+                                </select>
+                                <select
+                                    className={`ca-dob-select${dob.year ? "" : " ca-dob-empty"}`}
+                                    value={dob.year}
+                                    onChange={changeDob("year")}
+                                    onBlur={() => markTouched("dateOfBirth")}
+                                    aria-label="Year of birth"
+                                >
+                                    <option value="" disabled>Year</option>
+                                    {DOB_YEARS.map((y) => (
+                                        <option key={y} value={y}>{y}</option>
+                                    ))}
+                                </select>
                             </div>
                             {showError("dateOfBirth") && <div className="ca-error">{showError("dateOfBirth")}</div>}
                         </div>
