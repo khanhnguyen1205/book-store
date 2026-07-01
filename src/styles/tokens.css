@@ -1,0 +1,74 @@
+/* ============================================================
+   The Literary Gallery — visual identity tokens
+   Concept: "Night Exhibition" — sách trưng bày như tác phẩm
+   đóng khung trên tường phòng triển lãm tối, dưới đèn rọi đồng.
+   ============================================================ */
+
+:root {
+  /* Wall (nền phòng trưng bày) */
+  --wall:        #17211C;  /* tường thông-mực sâu */
+  --wall-2:      #1F2C26;  /* panel / card nổi */
+  --wall-3:      #26362F;  /* input / hover */
+  --line:        #35473E;  /* hairline trên nền tối */
+  --line-soft:   #2A3A33;
+
+  /* Paper (chữ như trang sách) */
+  --paper:       #F3EDE1;  /* chữ chính */
+  --paper-dim:   #AEB6AB;  /* chữ phụ */
+  --paper-mute:  #7E8C82;  /* caption / label mờ */
+
+  /* Brass (đồng: khung tranh, biển bảo tàng, đèn rọi) */
+  --brass:       #C6A15B;
+  --brass-bright:#E4C888;
+  --brass-deep:  #9C7A3C;
+
+  /* Functional */
+  --rose:        #D98A6A;  /* badge giỏ hàng / cảnh báo ấm */
+  --error:       #E06A55;
+  --success:     #7FB88A;
+  --star:        #E4C888;
+
+  /* Shape & motion */
+  --radius:      12px;
+  --radius-sm:   8px;
+  --radius-pill: 999px;
+  --shadow-lift: 0 22px 48px -22px rgba(0, 0, 0, 0.75);
+  --shadow-cover:0 10px 24px -10px rgba(0, 0, 0, 0.7);
+  --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Type */
+  --font-display:'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-ui:     'Inter', system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-ui);
+  background: var(--wall);
+  color: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--brass); color: var(--wall); }
+
+/* Focus nhìn thấy được — quality floor */
+:focus-visible {
+  outline: 2px solid var(--brass-bright);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

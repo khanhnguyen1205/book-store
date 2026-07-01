@@ -1,43 +1,293 @@
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  .lg-wrap { font-family: sans-serif; background: #fff; color: #111; }
-  .lg-hero { display: flex; align-items: center; padding: 3rem 2rem; background: #f4f4f8; gap: 2rem; min-height: 320px; }
-  .lg-hero-text { flex: 1; }
-  .lg-hero-eyebrow { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5555aa; margin-bottom: 1rem; font-weight: 500; }
-  .lg-hero-title { font-family: Georgia, serif; font-size: 48px; line-height: 1.1; margin-bottom: 0.5rem; color: #111; }
-  .lg-hero-title em { color: #4444cc; font-style: italic; }
-  .lg-hero-desc { font-size: 14px; color: #666; line-height: 1.6; max-width: 340px; margin: 1rem 0 1.5rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .lg-btn-primary { background: #3333bb; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-size: 13px; cursor: pointer; }
-  .lg-btn-secondary { background: transparent; color: #111; border: 0.5px solid #ccc; padding: 10px 20px; border-radius: 20px; font-size: 13px; cursor: pointer; }
-  .lg-hero-book-wrap { width: 220px; flex-shrink: 0; }
-  .lg-hero-book-img { width: 100%; border-radius: 8px; background: #1a2a3a; height: 260px; display: flex; align-items: flex-end; justify-content: center; padding: 12px; transform: rotate(-6deg); }
-  .lg-main { display: flex; gap: 0; padding: 2rem; }
-  .lg-sidebar { width: 160px; flex-shrink: 0; padding-right: 1.5rem; }
-  .lg-sidebar h4 { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 1rem; font-weight: 500; }
-  .lg-cat-list { list-style: none; margin-bottom: 1.5rem; }
-  .lg-cat-list li { display: flex; justify-content: space-between; align-items: center; padding: 7px 10px; border-radius: 8px; font-size: 13px; cursor: pointer; color: #666; }
-  .lg-cat-list li.active { background: #ebebf8; color: #3333bb; font-weight: 500; }
-  .lg-cat-badge { font-size: 11px; background: #f0f0f0; padding: 2px 6px; border-radius: 10px; color: #888; }
-  .lg-cat-list li.active .lg-cat-badge { background: #d0d0f0; color: #3333bb; }
-  .lg-price-label { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-top: 8px; }
-  .lg-quote-card { background: #ebebf8; border-radius: 8px; padding: 12px; margin-top: 1.5rem; }
-  .lg-quote-card p { font-family: Georgia, serif; font-size: 13px; color: #3333aa; font-style: italic; line-height: 1.5; margin-bottom: 6px; }
-  .lg-quote-card cite { font-size: 11px; color: #888; font-style: normal; }
-  .lg-content { flex: 1; min-width: 0; }
-  .lg-content-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
-  .lg-section-title { font-family: Georgia, serif; font-size: 24px; }
-  .lg-section-title em { color: #4444cc; font-style: italic; }
-  .lg-sort { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #888; }
-  .lg-sort select { border: 0.5px solid #ddd; border-radius: 8px; padding: 4px 10px; font-size: 13px; background: #fff; color: #111; }
-  .lg-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
-  .lg-book-card { cursor: pointer; }
-  .lg-book-cover { border-radius: 8px; height: 200px; overflow: hidden; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; }
-  .lg-book-meta { display: flex; justify-content: space-between; align-items: baseline; }
-  .lg-book-title { font-size: 14px; font-weight: 500; }
-  .lg-book-price { color: #4444cc; font-size: 14px; font-weight: 500; }
-  .lg-book-author { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin: 3px 0 5px; }
-  .lg-book-stats { display: flex; justify-content: space-between; font-size: 11px; color: #888; }
-  .lg-stars { color: #f0a020; }
-  .lg-pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 2rem; }
-  .lg-page-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0.5px solid #ddd; border-radius: 8px; font-size: 13px; cursor: pointer; color: #888; }
-  .lg-page-btn.active { background: #3333bb; color: white; border-color: #3333bb; }
-  /* Footer styles moved to src/components/Footer.css (Footer dùng chung nhiều trang). */
+/* ===== The Literary Gallery — storefront layout (Night Exhibition) ===== */
+
+.lg-wrap { background: var(--wall); color: var(--paper); min-height: 100vh; }
+
+/* ---- Hero: bức tường triển lãm được rọi đèn ---- */
+.lg-hero {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 3.5rem 3rem;
+  min-height: 360px;
+  background:
+    radial-gradient(120% 95% at 78% 20%, rgba(228, 200, 136, 0.12), transparent 55%),
+    var(--wall);
+  border-bottom: 1px solid var(--line-soft);
+}
+.lg-hero-text { flex: 1; min-width: 0; }
+.lg-hero-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 1.1rem;
+  font-weight: 600;
+}
+.lg-hero-title {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-size: 52px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+  color: var(--paper);
+}
+.lg-hero-title em { color: var(--brass-bright); font-style: italic; }
+.lg-hero-desc {
+  font-size: 15px;
+  color: var(--paper-dim);
+  line-height: 1.65;
+  max-width: 380px;
+  margin: 1rem 0 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Buttons — brass là hành động chính */
+.lg-btn-primary {
+  background: var(--brass);
+  color: var(--wall);
+  border: none;
+  padding: 11px 22px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s var(--ease), transform 0.15s var(--ease);
+}
+.lg-btn-primary:hover { background: var(--brass-bright); transform: translateY(-1px); }
+.lg-btn-secondary {
+  background: transparent;
+  color: var(--paper);
+  border: 1px solid var(--line);
+  padding: 11px 22px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+.lg-btn-secondary:hover { border-color: var(--brass); color: var(--brass-bright); }
+
+/* Sách nổi bật trong hero — treo nghiêng như tác phẩm được đóng khung */
+.lg-hero-book-wrap { width: 230px; flex-shrink: 0; }
+.lg-hero-book-img {
+  width: 100%;
+  height: 280px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 12px;
+  transform: rotate(-5deg);
+  border: 1px solid var(--brass-deep);
+  box-shadow: var(--shadow-lift);
+  transition: transform 0.4s var(--ease);
+}
+.lg-hero-book-img:hover { transform: rotate(-2deg) scale(1.02); }
+
+/* ---- Main layout ---- */
+.lg-main { display: flex; gap: 2.5rem; padding: 2.5rem 3rem; max-width: 1240px; margin: 0 auto; }
+
+/* ---- Sidebar: "The Collection" ---- */
+.lg-sidebar { width: 190px; flex-shrink: 0; }
+.lg-sidebar h4 {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--paper-mute);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.lg-cat-list { list-style: none; margin-bottom: 1.75rem; }
+.lg-cat-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--paper-dim);
+  transition: background 0.15s var(--ease), color 0.15s var(--ease);
+}
+.lg-cat-list li:hover { color: var(--paper); background: var(--wall-2); }
+.lg-cat-list li.active { background: var(--wall-3); color: var(--brass-bright); font-weight: 500; }
+.lg-price-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--paper-mute);
+  margin-top: 8px;
+}
+.lg-quote-card {
+  background: var(--wall-2);
+  border: 1px solid var(--line-soft);
+  border-left: 3px solid var(--brass);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-top: 1.75rem;
+}
+.lg-quote-card p {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--paper);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.lg-quote-card cite { font-size: 11px; color: var(--paper-mute); font-style: normal; letter-spacing: 0.04em; }
+
+/* ---- Content ---- */
+.lg-content { flex: 1; min-width: 0; }
+.lg-content-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  gap: 1rem;
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 1rem;
+}
+.lg-section-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--paper);
+}
+.lg-section-title em { color: var(--brass-bright); font-style: italic; }
+.lg-sort { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--paper-mute); white-space: nowrap; }
+.lg-sort select {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  background: var(--wall-2);
+  color: var(--paper);
+  cursor: pointer;
+}
+.lg-sort select:hover { border-color: var(--brass); }
+
+.lg-state { padding: 3rem 0; color: var(--paper-dim); font-size: 14px; }
+.lg-state.error { color: var(--error); }
+
+/* ---- Grid ---- */
+.lg-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.75rem; }
+.lg-grid-item { text-decoration: none; color: inherit; cursor: pointer; }
+
+/* ---- Book card = tác phẩm đóng khung + đèn rọi + biển đồng ---- */
+.lg-book-card { position: relative; }
+
+.lg-frame {
+  position: relative;
+  background: var(--wall-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 16px 16px;
+  overflow: hidden;
+  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+/* Đèn rọi (fixture đồng ở đỉnh khung) */
+.lg-frame::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(var(--brass-bright), var(--brass-deep));
+  z-index: 2;
+  opacity: 0.75;
+}
+/* Vệt sáng đèn hắt xuống bìa */
+.lg-frame-light {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 78%;
+  height: 100px;
+  pointer-events: none;
+  background: radial-gradient(60% 100% at 50% 0%, rgba(228, 200, 136, 0.30), transparent 72%);
+  opacity: 0.45;
+  transition: opacity 0.3s var(--ease);
+  z-index: 2;
+}
+.lg-book-card:hover .lg-frame {
+  transform: translateY(-5px);
+  border-color: var(--brass);
+  box-shadow: var(--shadow-lift);
+}
+.lg-book-card:hover .lg-frame-light { opacity: 1; }
+
+.lg-book-cover {
+  position: relative;
+  z-index: 1;
+  height: 240px;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-cover);
+}
+.lg-book-noimg { padding: 20px; text-align: center; color: var(--paper-mute); font-size: 13px; }
+
+/* Biển đồng (plaque) dưới khung */
+.lg-plaque { margin-top: 14px; }
+.lg-plaque-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.lg-book-title { font-family: var(--font-display); font-size: 16px; font-weight: 500; color: var(--paper); line-height: 1.25; }
+.lg-book-price { font-family: var(--font-ui); font-size: 14px; font-weight: 600; color: var(--brass-bright); white-space: nowrap; }
+.lg-book-author {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper-mute);
+  margin: 6px 0 8px;
+}
+.lg-book-stats { display: flex; justify-content: space-between; font-size: 12px; color: var(--paper-dim); }
+.lg-stars { color: var(--star); }
+
+/* ---- Pagination ---- */
+.lg-pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 2.5rem; }
+.lg-page-btn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--paper-dim);
+  background: var(--wall-2);
+  transition: border-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+.lg-page-btn:hover { border-color: var(--brass); color: var(--paper); }
+.lg-page-btn.active { background: var(--brass); color: var(--wall); border-color: var(--brass); font-weight: 600; }
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .lg-hero { flex-direction: column; text-align: center; padding: 2.5rem 1.5rem; }
+  .lg-hero-desc { margin-left: auto; margin-right: auto; }
+  .lg-main { flex-direction: column; padding: 2rem 1.5rem; gap: 2rem; }
+  .lg-sidebar { width: 100%; }
+  .lg-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+}
+@media (max-width: 560px) {
+  .lg-hero-title { font-size: 38px; }
+  .lg-grid { grid-template-columns: 1fr; }
+  .lg-content-header { flex-direction: column; align-items: flex-start; }
+}

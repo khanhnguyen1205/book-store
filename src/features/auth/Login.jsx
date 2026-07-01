@@ -88,7 +88,7 @@ function Login() {
                 required
               />
               {showError("email") && (
-                <p style={{ color: "#e24b4a", fontSize: "0.78rem", margin: "6px 0 0" }}>
+                <p style={{ color: "var(--error)", fontSize: "0.78rem", margin: "6px 0 0" }}>
                   {showError("email")}
                 </p>
               )}
@@ -132,7 +132,7 @@ function Login() {
                 </button>
               </div>
               {showError("password") && (
-                <p style={{ color: "#e24b4a", fontSize: "0.78rem", margin: "6px 0 0" }}>
+                <p style={{ color: "var(--error)", fontSize: "0.78rem", margin: "6px 0 0" }}>
                   {showError("password")}
                 </p>
               )}
@@ -149,14 +149,14 @@ function Login() {
                 />
                 <span className="remember-label">Remember me</span>
               </label>
-              <a href="#" className="forgot-password">
+              <button type="button" className="forgot-password">
                 Forgot Password?
-              </a>
+              </button>
             </div>
 
             {/* Error message */}
             {error && (
-              <p style={{ color: "#e24b4a", fontSize: "0.82rem", margin: "-6px 0 0" }}>
+              <p style={{ color: "var(--error)", fontSize: "0.82rem", margin: "-6px 0 0" }}>
                 {error}
               </p>
             )}

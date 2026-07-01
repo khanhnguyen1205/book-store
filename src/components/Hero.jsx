@@ -14,8 +14,8 @@ const slideCSS = `
   .hero-viewport { position: relative; overflow: hidden; height: 360px; padding: 0 !important; }
   .hero-slide {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    display: flex; align-items: center; padding: 3rem 2rem; gap: 2rem;
-    background: #f4f4f8;
+    display: flex; align-items: center; padding: 3rem 3rem; gap: 2.5rem;
+    background: transparent;
   }
   @keyframes heroOutLeft  { from { transform: translateX(0); }     to { transform: translateX(-105%); } }
   @keyframes heroOutRight { from { transform: translateX(0); }     to { transform: translateX(105%); }  }
@@ -43,10 +43,10 @@ function SlideContent({ book, rank }) {
           {book.title}
         </h1>
         <p className="lg-hero-desc">{String(book.description || '').split('\n\n')[0]}</p>
-        <div style={{ display: 'flex', gap: 16, marginBottom: '1rem', fontSize: 13, color: '#888' }}>
+        <div style={{ display: 'flex', gap: 16, marginBottom: '1rem', fontSize: 13, color: 'var(--paper-dim)' }}>
           <span>⭐ {book.rating}</span>
           <span>{book.sold?.toLocaleString()} sold</span>
-          <span style={{ color: '#3333bb', fontWeight: 600 }}>{displayPrice}</span>
+          <span style={{ color: 'var(--brass-bright)', fontWeight: 600 }}>{displayPrice}</span>
         </div>
       </div>
       <div className="lg-hero-book-wrap">
@@ -317,7 +317,7 @@ export default function Hero() {
               width: i === currentIndex ? 20 : 8,
               height: 8,
               borderRadius: 4,
-              background: i === currentIndex ? '#3333bb' : '#ccc',
+              background: i === currentIndex ? 'var(--brass)' : 'var(--line)',
               border: 'none',
               cursor: 'pointer',
               padding: 0,

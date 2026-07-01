@@ -128,15 +128,15 @@ export default function BookList() {
           </div>
 
           {loading ? (
-            <div style={{ padding: '3rem 0', color: '#666' }}>Loading books...</div>
+            <div className="lg-state">Loading books...</div>
           ) : error ? (
-            <div style={{ padding: '3rem 0', color: '#e24b4a' }}>{error}</div>
+            <div className="lg-state error">{error}</div>
           ) : books.length === 0 ? (
-            <div style={{ padding: '3rem 0', color: '#666' }}>No books found for your search.</div>
+            <div className="lg-state">No books found for your search.</div>
           ) : (
             <div className="lg-grid">
               {books.map((book) => (
-                <div key={book.id} onClick={() => navigate(`/book/${book.id}`)} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div key={book.id} className="lg-grid-item" onClick={() => navigate(`/book/${book.id}`)}>
                   <BookCard book={book} />
                 </div>
               ))}

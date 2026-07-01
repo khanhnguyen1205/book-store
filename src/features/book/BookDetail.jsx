@@ -45,7 +45,7 @@ export default function BookDetail() {
     if (loading) {
         return (
             <div className="bd-wrap">
-                <div style={{ padding: "5rem", textAlign: "center", color: "#666" }}>Loading book details...</div>
+                <div style={{ padding: "5rem", textAlign: "center", color: "var(--paper-dim)" }}>Loading book details...</div>
             </div>
         );
     }
@@ -53,7 +53,7 @@ export default function BookDetail() {
     if (error || !book) {
         return (
             <div className="bd-wrap">
-                <div style={{ padding: "5rem", textAlign: "center", color: "#e24b4a" }}>{error || "Book not found."}</div>
+                <div style={{ padding: "5rem", textAlign: "center", color: "var(--error)" }}>{error || "Book not found."}</div>
             </div>
         );
     }
@@ -133,7 +133,7 @@ export default function BookDetail() {
                         <div className="bd-meta-item">
                             <div className="bd-meta-label">Availability</div>
                             <div className="bd-meta-value">
-                                <span className="bd-dot" style={{ background: book.stock > 0 ? "#22cc77" : "#e24b4a" }}></span>
+                                <span className="bd-dot" style={{ background: book.stock > 0 ? "var(--success)" : "var(--error)" }}></span>
                                 {book.stock > 0 ? "In Stock" : "Out of Stock"}
                             </div>
                         </div>
@@ -253,7 +253,7 @@ export default function BookDetail() {
                                 {relBook.image ? (
                                     <img src={relBook.image} alt={relBook.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 ) : (
-                                    <div style={{ textAlign: 'center', color: '#666', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>No Cover</div>
+                                    <div style={{ textAlign: 'center', color: 'var(--paper-mute)', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>No Cover</div>
                                 )}
                             </div>
                             <div className="bd-related-book-title">{relBook.title}</div>

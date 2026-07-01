@@ -105,7 +105,7 @@ export default function ManageUsers() {
                     <td>{u.id}</td>
                     <td>
                       {u.fullName || '—'}
-                      {isSelf && <span style={{ color: '#6b6b7b' }}> (bạn)</span>}
+                      {isSelf && <span style={{ color: 'var(--paper-mute)' }}> (bạn)</span>}
                     </td>
                     <td>{u.email}</td>
                     <td>

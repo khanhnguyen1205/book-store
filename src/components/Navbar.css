@@ -2,50 +2,43 @@
   display: flex;
   align-items: center;
   gap: 2.5rem;
-  padding: 1.1rem 2.5rem;
-  background: #fff;
-  font-family: sans-serif;
+  padding: 1.1rem 3rem;
+  background: var(--wall);
+  font-family: var(--font-ui);
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 1px 12px rgba(17, 17, 17, 0.06);
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .lg-logo {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: Georgia, serif;
-  font-size: 23px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
   text-decoration: none;
-  color: #111;
+  color: var(--paper);
   letter-spacing: 0.2px;
   white-space: nowrap;
 }
 
-.lg-logo-icon {
-  flex-shrink: 0;
-  transition: transform 0.25s ease;
-}
-
-.lg-logo:hover {
-  color: #3333bb;
-}
-
-.lg-logo:hover .lg-logo-icon {
-  transform: rotate(-6deg) scale(1.05);
-}
+.lg-logo-icon { flex-shrink: 0; transition: transform 0.25s ease; }
+.lg-logo-icon path { stroke: var(--brass); transition: stroke 0.2s ease; }
+.lg-logo:hover .lg-logo-icon path { stroke: var(--brass-bright); }
+.lg-logo:hover { color: var(--brass-bright); }
+.lg-logo:hover .lg-logo-icon { transform: rotate(-6deg) scale(1.05); }
 
 .lg-nav-links {
   display: flex;
   gap: 2rem;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
 }
 
 .lg-nav-links a {
-  color: #333;
+  color: var(--paper-dim);
   cursor: pointer;
   text-decoration: none;
   padding: 4px 0;
@@ -53,13 +46,11 @@
   transition: color 0.2s;
 }
 
-.lg-nav-links a:hover {
-  color: #3333bb;
-}
+.lg-nav-links a:hover { color: var(--paper); }
 
 .lg-nav-links a.active {
-  color: #111;
-  border-bottom: 3px solid #3333bb;
+  color: var(--paper);
+  border-bottom: 2px solid var(--brass);
 }
 
 .lg-nav-right {
@@ -72,60 +63,54 @@
 .lg-search {
   display: flex;
   align-items: center;
-  border: 1px solid #ddd;
-  border-radius: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
   padding: 9px 16px;
   font-size: 14px;
   gap: 10px;
-  background: #f6f6f8;
+  background: var(--wall-2);
+  color: var(--paper-mute);
   width: 250px;
-  color: #888;
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
 .lg-search:focus-within {
-  border-color: #3333bb;
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(51, 51, 187, 0.12);
-  color: #3333bb;
+  border-color: var(--brass);
+  background: var(--wall-3);
+  box-shadow: 0 0 0 3px rgba(198, 161, 91, 0.15);
+  color: var(--brass-bright);
 }
 
 .lg-search input {
   border: none;
   background: transparent;
   outline: none;
+  font-family: var(--font-ui);
   font-size: 14px;
-  color: #222;
+  color: var(--paper);
   width: 100%;
 }
 
-.lg-search input::placeholder {
-  color: #999;
-}
+.lg-search input::placeholder { color: var(--paper-mute); }
 
+/* Giỏ hàng: một cụm icon + label */
 .lg-cart-link {
   display: flex;
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  color: #333;
-  font-size: 15px;
+  color: var(--paper-dim);
+  font-size: 14px;
   font-weight: 500;
 }
-
-.lg-cart-label {
-  transition: color 0.2s;
-}
-
-.lg-cart-link:hover .lg-cart-label {
-  color: #3333bb;
-}
+.lg-cart-label { transition: color 0.2s; }
+.lg-cart-link:hover .lg-cart-label { color: var(--paper); }
 
 .lg-cart {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #3333bb;
+  background: var(--brass);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,31 +120,36 @@
 }
 
 .lg-cart-link:hover .lg-cart {
-  background: #2a2a99;
+  background: var(--brass-bright);
   transform: translateY(-1px);
 }
+
+/* Icon khắc trên nền đồng (CSS ghi đè attribute stroke/fill của SVG) */
+.lg-cart svg path { stroke: var(--wall); }
+.lg-cart svg circle { fill: var(--wall); }
 
 .lg-cart-badge {
   position: absolute;
   top: -4px;
   right: -4px;
-  background: #e24b4a;
-  color: white;
+  background: var(--rose);
+  color: var(--wall);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   min-width: 18px;
   height: 18px;
   padding: 0 4px;
   border-radius: 9px;
-  border: 2px solid #fff;
+  border: 2px solid var(--wall);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .lg-nav-greeting {
+  font-family: var(--font-ui);
   font-size: 14px;
-  color: #444;
+  color: var(--paper-dim);
   font-weight: 500;
   white-space: nowrap;
   background: none;
@@ -167,61 +157,33 @@
   padding: 4px 6px;
   border-radius: 6px;
   cursor: pointer;
-  font-family: inherit;
   transition: background 0.15s ease, color 0.15s ease;
 }
 
-.lg-nav-greeting:hover {
-  color: #3333bb;
-  background: rgba(51, 51, 187, 0.08);
-}
+.lg-nav-greeting:hover { color: var(--brass-bright); background: rgba(198, 161, 91, 0.1); }
 
 .lg-nav-auth {
-  font-size: 14px;
+  font-family: var(--font-ui);
+  font-size: 13px;
   font-weight: 600;
-  color: #3333bb;
+  color: var(--brass-bright);
   cursor: pointer;
-  font-family: inherit;
   background: transparent;
-  border: 1.5px solid #3333bb;
-  border-radius: 24px;
+  border: 1px solid var(--brass);
+  border-radius: var(--radius-pill);
   padding: 8px 20px;
   transition: background 0.2s, color 0.2s;
   white-space: nowrap;
 }
 
-.lg-nav-auth:hover {
-  background: #3333bb;
-  color: #fff;
-}
+.lg-nav-auth:hover { background: var(--brass); color: var(--wall); }
 
 @media (max-width: 768px) {
-  .lg-nav {
-    gap: 1rem;
-    padding: 0.9rem 1.25rem;
-  }
-
-  .lg-logo {
-    font-size: 18px;
-  }
-
-  .lg-nav-links {
-    display: none;
-  }
-
-  .lg-search {
-    width: 150px;
-  }
-
-  .lg-nav-greeting {
-    display: none;
-  }
-
-  .lg-cart-label {
-    display: none;
-  }
-
-  .lg-nav-right {
-    gap: 0.75rem;
-  }
+  .lg-nav { gap: 1rem; padding: 0.9rem 1.25rem; }
+  .lg-logo { font-size: 18px; }
+  .lg-nav-links { display: none; }
+  .lg-search { width: 150px; }
+  .lg-nav-greeting { display: none; }
+  .lg-cart-label { display: none; }
+  .lg-nav-right { gap: 0.75rem; }
 }

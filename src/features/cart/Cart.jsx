@@ -45,7 +45,7 @@ export default function CartPage() {
                 {/* Cart Items */}
                 <div className="cart-items">
                     {cart.length === 0 ? (
-                        <div style={{ padding: "3rem", textAlign: "center", color: "#888" }}>
+                        <div style={{ padding: "3rem", textAlign: "center", color: "var(--paper-dim)" }}>
                             Your cart is empty.
                         </div>
                     ) : (
@@ -79,19 +79,19 @@ export default function CartPage() {
                     >
                         Proceed to Checkout
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                            <path d="M3 7h8M8 4l3 3-3 3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </button>
                     <div className="cart-premium-note">
-                        <svg width="20" height="16" viewBox="0 0 20 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
-                            <rect x="1" y="4" width="18" height="11" rx="2" stroke="#5555aa" strokeWidth="1.3" />
-                            <path d="M1 7h18M5 1l-2 3M10 1v3M15 1l2 3" stroke="#5555aa" strokeWidth="1.3" strokeLinecap="round" />
+                        <svg width="20" height="16" viewBox="0 0 20 16" fill="none" style={{ flexShrink: 0, marginTop: 1, color: 'var(--brass)' }}>
+                            <rect x="1" y="4" width="18" height="11" rx="2" stroke="currentColor" strokeWidth="1.3" />
+                            <path d="M1 7h18M5 1l-2 3M10 1v3M15 1l2 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
                         </svg>
                         <div><strong>Premium Curation:</strong> All orders are hand-wrapped in artisan parchment and shipped via priority courier.</div>
                     </div>
                     <Link to="/" className="cart-continue" style={{ textDecoration: 'none' }}>
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                            <path d="M9 3L5 7l4 4" stroke="#888" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M9 3L5 7l4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                         Continue Browsing
                     </Link>

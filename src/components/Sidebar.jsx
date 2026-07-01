@@ -6,7 +6,7 @@ const MAX_PRICE = 60;
 export default function Sidebar({ categories, activeCategory, onCategoryChange, maxPrice, onPriceChange }) {
   return (
     <aside className="lg-sidebar">
-      <h4>Categories</h4>
+      <h4>The Collection</h4>
       <ul className="lg-cat-list">
         {categories.map((cat) => (
           <li
@@ -19,7 +19,7 @@ export default function Sidebar({ categories, activeCategory, onCategoryChange, 
         ))}
       </ul>
       <h4>Filter by Price</h4>
-      <div style={{ fontSize: 12, color: '#3333bb', fontWeight: 500, marginBottom: 4 }}>
+      <div style={{ fontSize: 12, color: 'var(--brass-bright)', fontWeight: 600, marginBottom: 4 }}>
         Up to ${maxPrice}.00
       </div>
       <input
@@ -29,7 +29,7 @@ export default function Sidebar({ categories, activeCategory, onCategoryChange, 
         step={1}
         value={maxPrice}
         onChange={(e) => onPriceChange(Number(e.target.value))}
-        style={{ width: "100%", margin: "4px 0", accentColor: "#3333bb" }}
+        style={{ width: "100%", margin: "4px 0", accentColor: "var(--brass)" }}
       />
       <div className="lg-price-label">
         <span>${MIN_PRICE}</span>

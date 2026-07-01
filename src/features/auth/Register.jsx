@@ -13,14 +13,16 @@ import {
 } from "./validation";
 
 const styles = `
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
   .ca-page {
     min-height: 100vh;
-    background: radial-gradient(ellipse at top left, #e8e4f8 0%, #f5f4fc 40%, #ece8f8 70%, #e4e0f5 100%);
+    background:
+      radial-gradient(ellipse at top left, rgba(198, 161, 91, 0.10), transparent 45%),
+      radial-gradient(ellipse at bottom right, rgba(198, 161, 91, 0.06), transparent 50%),
+      var(--wall);
     display: flex;
     flex-direction: column;
-    font-family: sans-serif;
+    font-family: var(--font-ui);
+    color: var(--paper);
   }
 
   .ca-main {
@@ -32,12 +34,13 @@ const styles = `
   }
 
   .ca-card {
-    background: #ffffff;
+    background: var(--wall-2);
+    border: 1px solid var(--line);
     border-radius: 20px;
     padding: 3rem 3.5rem;
     width: 100%;
     max-width: 480px;
-    box-shadow: 0 4px 40px rgba(80, 60, 180, 0.07);
+    box-shadow: var(--shadow-lift);
   }
 
   .ca-brand-link {
@@ -45,24 +48,24 @@ const styles = `
     text-decoration: none;
     transition: opacity 0.15s ease;
   }
-  .ca-brand-link:hover { opacity: 0.7; }
+  .ca-brand-link:hover { opacity: 0.75; }
 
   .ca-brand {
     text-align: center;
-    font-family: Georgia, serif;
+    font-family: var(--font-display);
     font-size: 22px;
     font-style: italic;
-    color: #3333cc;
+    color: var(--brass-bright);
     margin-bottom: 0.75rem;
     font-weight: 500;
   }
 
   .ca-heading {
     text-align: center;
-    font-family: Georgia, serif;
-    font-size: 30px;
-    font-weight: 400;
-    color: #111;
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--paper);
     margin-bottom: 0.5rem;
     letter-spacing: -0.3px;
   }
@@ -70,7 +73,7 @@ const styles = `
   .ca-subheading {
     text-align: center;
     font-size: 14px;
-    color: #aaa;
+    color: var(--paper-mute);
     margin-bottom: 2.25rem;
   }
 
@@ -82,7 +85,7 @@ const styles = `
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #aaa;
+    color: var(--paper-mute);
     font-weight: 600;
     margin-bottom: 8px;
     display: block;
@@ -92,11 +95,17 @@ const styles = `
     display: flex;
     align-items: center;
     gap: 10px;
-    border-bottom: 1px solid #e8e8ee;
+    border-bottom: 1px solid var(--line);
     padding-bottom: 10px;
+    transition: border-color 0.2s ease;
   }
+  .ca-input-row:focus-within { border-bottom-color: var(--brass); }
 
-  .ca-input-row svg { flex-shrink: 0; color: #bbb; }
+  .ca-input-row svg { flex-shrink: 0; color: var(--paper-mute); }
+  /* Icon dùng stroke literal -> ép theo palette */
+  .ca-input-row svg circle,
+  .ca-input-row svg path,
+  .ca-input-row svg rect { stroke: var(--paper-mute); }
 
   .ca-input-row input {
     flex: 1;
@@ -104,50 +113,51 @@ const styles = `
     border: none;
     outline: none;
     font-size: 14px;
-    color: #333;
+    color: var(--paper);
     background: transparent;
-    font-family: sans-serif;
+    font-family: var(--font-ui);
   }
 
-  .ca-input-row input::placeholder { color: #bbb; }
+  .ca-input-row input::placeholder { color: var(--paper-mute); }
 
   .ca-eye {
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
-    color: #bbb;
+    color: var(--paper-mute);
     display: flex;
     align-items: center;
     flex-shrink: 0;
   }
-  .ca-eye:hover { color: #888; }
+  .ca-eye:hover { color: var(--brass-bright); }
 
-  .ca-error { color: #e24b4a; font-size: 12px; margin-top: 4px; }
+  .ca-error { color: var(--error); font-size: 12px; margin-top: 4px; }
 
   /* Ngày sinh: 3 ô chọn Day / Month / Year */
   .ca-dob-grid { display: grid; grid-template-columns: 0.8fr 1.3fr 1fr; gap: 12px; }
   .ca-dob-select {
     width: 100%;
     border: none;
-    border-bottom: 1px solid #e8e8ee;
+    border-bottom: 1px solid var(--line);
     background: transparent;
     padding: 2px 18px 10px 0;
     font-size: 14px;
-    color: #333;
-    font-family: sans-serif;
+    color: var(--paper);
+    font-family: var(--font-ui);
     outline: none;
     cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23bbb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23AEB6AB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0 center;
     background-size: 12px;
   }
-  .ca-dob-select:focus { border-bottom-color: #3333cc; }
-  .ca-dob-empty { color: #bbb; }
+  .ca-dob-select option { background: var(--wall-2); color: var(--paper); }
+  .ca-dob-select:focus { border-bottom-color: var(--brass); }
+  .ca-dob-empty { color: var(--paper-mute); }
 
   /* Thanh hiển thị độ mạnh mật khẩu */
   .ca-strength { margin: -0.5rem 0 1.5rem; }
@@ -156,7 +166,7 @@ const styles = `
     flex: 1;
     height: 4px;
     border-radius: 2px;
-    background: #e8e8ee;
+    background: var(--line);
     transition: background 0.2s ease;
   }
   .ca-strength-label {
@@ -180,41 +190,43 @@ const styles = `
 
   .ca-dots {
     font-size: 18px;
-    color: #bbb;
+    color: var(--paper-mute);
     letter-spacing: 3px;
     line-height: 1;
   }
 
   .ca-divider {
     height: 1px;
-    background: #f0f0f5;
+    background: var(--line-soft);
     margin: 0.5rem 0 1.75rem;
   }
 
   .ca-btn-create {
     width: 100%;
-    background: #3333cc;
-    color: white;
+    background: var(--brass);
+    color: var(--wall);
     border: none;
     border-radius: 30px;
     padding: 16px;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 700;
     cursor: pointer;
     letter-spacing: 0.02em;
     margin-bottom: 1.25rem;
+    transition: background 0.18s ease, transform 0.12s ease;
   }
+  .ca-btn-create:hover:not(:disabled) { background: var(--brass-bright); transform: translateY(-1px); }
 
   .ca-signin-row {
     text-align: center;
     font-size: 13px;
-    color: #999;
+    color: var(--paper-mute);
   }
 
   .ca-signin-row a {
-    color: #3333cc;
+    color: var(--brass-bright);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   /* Footer */
@@ -223,19 +235,20 @@ const styles = `
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem 2rem;
+    border-top: 1px solid var(--line-soft);
   }
 
   .ca-footer-brand {
-    font-family: Georgia, serif;
+    font-family: var(--font-display);
     font-size: 15px;
-    color: #333;
+    color: var(--paper-dim);
     font-style: italic;
   }
 
   .ca-footer-copy {
     font-size: 11px;
     letter-spacing: 0.06em;
-    color: #bbb;
+    color: var(--paper-mute);
     text-transform: uppercase;
   }
 
@@ -247,11 +260,12 @@ const styles = `
   .ca-footer-links span {
     font-size: 11px;
     letter-spacing: 0.08em;
-    color: #aaa;
+    color: var(--paper-mute);
     text-transform: uppercase;
     cursor: pointer;
     font-weight: 500;
   }
+  .ca-footer-links span:hover { color: var(--brass-bright); }
 `;
 
 const IconUser = () => (
@@ -530,7 +544,7 @@ export default function CreateAccount() {
                                         <div
                                             key={seg}
                                             className="ca-strength-seg"
-                                            style={{ background: seg <= strength ? STRENGTH_COLORS[strength] : "#e8e8ee" }}
+                                            style={{ background: seg <= strength ? STRENGTH_COLORS[strength] : "var(--line)" }}
                                         />
                                     ))}
                                 </div>
@@ -542,8 +556,8 @@ export default function CreateAccount() {
 
                         <div className="ca-divider" />
 
-                        {generalError && <div style={{ color: "#e24b4a", fontSize: "14px", marginBottom: "1rem", textAlign: "center" }}>{generalError}</div>}
-                        {successMsg && <div style={{ color: "#28a745", fontSize: "14px", marginBottom: "1rem", textAlign: "center" }}>{successMsg}</div>}
+                        {generalError && <div style={{ color: "var(--error)", fontSize: "14px", marginBottom: "1rem", textAlign: "center" }}>{generalError}</div>}
+                        {successMsg && <div style={{ color: "var(--success)", fontSize: "14px", marginBottom: "1rem", textAlign: "center" }}>{successMsg}</div>}
 
                         <button type="submit" className="ca-btn-create" disabled={loading || !isFormValid}>
                             {loading ? "Creating..." : "Create Account"}

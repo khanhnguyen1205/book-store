@@ -90,7 +90,7 @@ export default function Footer() {
 
         <div>
           <h5>The Atelier Newsletter</h5>
-          <p style={{ fontSize: 13, color: '#888', lineHeight: 1.5 }}>
+          <p style={{ fontSize: 13, color: 'var(--paper-dim)', lineHeight: 1.5 }}>
             Subscribe for weekly curations and exclusive literary events.
           </p>
           <form className="lg-newsletter-input" onSubmit={handleSubscribe}>
