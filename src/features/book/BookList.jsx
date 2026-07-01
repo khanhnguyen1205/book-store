@@ -64,12 +64,9 @@ export default function BookList() {
         
         params.price_lte = maxPrice * 1000;
 
-        if (sort === 'price_asc') {
+        if (sort === 'price_asc' || sort === 'price_desc') {
           params._sort = 'price';
-          params._order = 'asc';
-        } else if (sort === 'price_desc') {
-          params._sort = 'price';
-          params._order = 'desc';
+          params._order = sort === 'price_asc' ? 'asc' : 'desc';
         }
         
         const res = await bookService.getBooks(params);
@@ -95,6 +92,23 @@ export default function BookList() {
   const handlePriceChange = (value) => {
     setMaxPrice(value);
     setPage(1);
+  };
+
+  // Chọn nội dung lưới sách theo trạng thái tải/lỗi/rỗng.
+  const renderBooks = () => {
+    if (loading) return <div className="lg-state">Loading books...</div>;
+    if (error) return <div className="lg-state error">{error}</div>;
+    if (books.length === 0) return <div className="lg-state">No books found for your search.</div>;
+
+    return (
+      <div className="lg-grid">
+        {books.map((book) => (
+          <div key={book.id} className="lg-grid-item" onClick={() => navigate(`/book/${book.id}`)}>
+            <BookCard book={book} />
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -127,21 +141,7 @@ export default function BookList() {
             </div>
           </div>
 
-          {loading ? (
-            <div className="lg-state">Loading books...</div>
-          ) : error ? (
-            <div className="lg-state error">{error}</div>
-          ) : books.length === 0 ? (
-            <div className="lg-state">No books found for your search.</div>
-          ) : (
-            <div className="lg-grid">
-              {books.map((book) => (
-                <div key={book.id} className="lg-grid-item" onClick={() => navigate(`/book/${book.id}`)}>
-                  <BookCard book={book} />
-                </div>
-              ))}
-            </div>
-          )}
+          {renderBooks()}
 
           {!loading && !error && (
             <Pagination 

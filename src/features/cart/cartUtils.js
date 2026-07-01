@@ -5,8 +5,7 @@
  */
 export const calculateSubtotal = (cart) => {
     return cart.reduce((total, item) => {
-        // Handle both raw price (needs scaling) or direct price
-        // Ensure price is treated consistently based on the app's standard format
+        // Bỏ qua item có price không phải số để tránh NaN lan ra tổng tiền.
         const price = typeof item.price === 'number' ? item.price : 0;
         return total + (price * item.quantity);
     }, 0);
@@ -40,14 +39,13 @@ export const calculateTotals = (items) => {
 };
 
 /**
- * Parses and formats price accurately handling the division logic seen in UI
- * @param {number|string} price 
+ * Định dạng giá tiền. Giá trong DB để ở "thang thô" (vd 150000) nên khi lớn
+ * hơn 1000 thì chia 1000 trước khi hiển thị; giá đã nhỏ sẵn thì giữ nguyên.
+ * @param {number|string} price
  * @returns {string} Formatted price
  */
 export const formatPrice = (price) => {
     if (typeof price === 'number') {
-        // App logic uses price/1000 in BookDetail, if numbers are huge.
-        // Assuming price is direct if it's less than 1000, but logic applies.
         if (price > 1000) {
             return `$${(price / 1000).toFixed(2)}`;
         }

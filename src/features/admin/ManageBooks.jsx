@@ -3,17 +3,6 @@ import { adminService } from './adminService';
 import { formatPrice } from '../cart/cartUtils';
 import './Admin.css';
 
-const EMPTY_BOOK = {
-  title: '',
-  author: '',
-  category: '',
-  price: '',
-  stock: '',
-  age: '',
-  image: '',
-  description: '',
-};
-
 /** Giá trị mặc định cho các trường không nhập trong form khi tạo sách mới. */
 const CREATE_DEFAULTS = { sold: 0, rating: 0, reviews: 0, bg: '#f0e6d3' };
 
@@ -63,7 +52,7 @@ export default function ManageBooks() {
           <h1 className="admin-title">Quản lý sách</h1>
           <p className="admin-subtitle">{books.length} đầu sách</p>
         </div>
-        <button className="admin-btn primary" onClick={() => setEditing({ ...EMPTY_BOOK })}>
+        <button className="admin-btn primary" onClick={() => setEditing({})}>
           + Thêm sách
         </button>
       </div>

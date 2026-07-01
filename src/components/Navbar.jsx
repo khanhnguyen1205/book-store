@@ -13,12 +13,8 @@ export default function Navbar({ search, onSearchChange }) {
   const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const handleAuthClick = () => {
-    if (user) {
-      logout();
-      navigate('/login');
-    } else {
-      navigate('/login');
-    }
+    if (user) logout();
+    navigate('/login');
   };
 
   const firstName = user?.fullName?.split(' ')[0] || user?.email;

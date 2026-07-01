@@ -1,13 +1,18 @@
 import React from 'react';
 
+// Mờ đi + đổi con trỏ khi nút prev/next bị vô hiệu (đầu/cuối danh sách)
+function navButtonStyle(disabled) {
+  return { opacity: disabled ? 0.5 : 1, cursor: disabled ? 'not-allowed' : 'pointer' };
+}
+
 export default function Pagination({ page, totalPages, onPageChange }) {
   if (totalPages <= 1) return null;
 
   return (
     <div className="lg-pagination">
-      <div 
-        className="lg-page-btn" 
-        style={{ opacity: page === 1 ? 0.5 : 1, cursor: page === 1 ? 'not-allowed' : 'pointer' }}
+      <div
+        className="lg-page-btn"
+        style={navButtonStyle(page === 1)}
         onClick={() => onPageChange(Math.max(1, page - 1))}
       >
         ‹
@@ -24,9 +29,9 @@ export default function Pagination({ page, totalPages, onPageChange }) {
           </div>
         );
       })}
-      <div 
-        className="lg-page-btn" 
-        style={{ opacity: page === totalPages ? 0.5 : 1, cursor: page === totalPages ? 'not-allowed' : 'pointer' }}
+      <div
+        className="lg-page-btn"
+        style={navButtonStyle(page === totalPages)}
         onClick={() => onPageChange(Math.min(totalPages, page + 1))}
       >
         ›

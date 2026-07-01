@@ -19,7 +19,7 @@ import Contact from '../features/info/Contact';
 import Privacy from '../features/info/Privacy';
 import Terms from '../features/info/Terms';
 
-const AppRoutes = () => {
+function AppRoutes() {
     return (
         <Routes>
             <Route path="/login" element={<Login />} />
@@ -43,6 +43,6 @@ const AppRoutes = () => {
             <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     );
-};
+}
 
 export default AppRoutes;

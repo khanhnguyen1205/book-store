@@ -5,6 +5,9 @@ import { useAuth } from "./AuthContext";
 import { validateEmail, validateLoginPassword } from "./validation";
 import "./Login.css";
 
+// Kiểu chữ lỗi dưới từng ô nhập.
+const fieldErrorStyle = { color: "var(--error)", fontSize: "0.78rem", margin: "6px 0 0" };
+
 function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -88,9 +91,7 @@ function Login() {
                 required
               />
               {showError("email") && (
-                <p style={{ color: "var(--error)", fontSize: "0.78rem", margin: "6px 0 0" }}>
-                  {showError("email")}
-                </p>
+                <p style={fieldErrorStyle}>{showError("email")}</p>
               )}
             </div>
 
@@ -132,9 +133,7 @@ function Login() {
                 </button>
               </div>
               {showError("password") && (
-                <p style={{ color: "var(--error)", fontSize: "0.78rem", margin: "6px 0 0" }}>
-                  {showError("password")}
-                </p>
+                <p style={fieldErrorStyle}>{showError("password")}</p>
               )}
             </div>
 

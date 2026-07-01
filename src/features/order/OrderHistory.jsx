@@ -33,6 +33,39 @@ export default function OrderHistory() {
         return () => { active = false; };
     }, [user]);
 
+    function renderContent() {
+        if (loading) {
+            return <div className="co-empty"><p>Loading your orders...</p></div>;
+        }
+        if (orders.length === 0) {
+            return (
+                <div className="co-empty">
+                    <p>You haven’t placed any orders yet.</p>
+                    <Link to="/" className="co-link-btn">Start shopping</Link>
+                </div>
+            );
+        }
+        return (
+            <div className="co-order-list">
+                {orders.map((order) => {
+                    const count = order.items.reduce((s, it) => s + it.quantity, 0);
+                    return (
+                        <Link to={`/order/${order.id}`} className="co-order-row" key={order.id}>
+                            <div>
+                                <div className="co-order-id">Order #{order.id}</div>
+                                <div className="co-order-meta">{formatDate(order.createdAt)} · {count} item{count > 1 ? "s" : ""}</div>
+                            </div>
+                            <div className="co-order-right">
+                                <span className="co-status">{order.status}</span>
+                                <span className="co-order-total">{formatPrice(order.amounts.total)}</span>
+                            </div>
+                        </Link>
+                    );
+                })}
+            </div>
+        );
+    }
+
     return (
         <div className="lg-wrap">
             <Navbar />
@@ -42,32 +75,7 @@ export default function OrderHistory() {
                     <h1>My Orders</h1>
                 </div>
 
-                {loading ? (
-                    <div className="co-empty"><p>Loading your orders...</p></div>
-                ) : orders.length === 0 ? (
-                    <div className="co-empty">
-                        <p>You haven’t placed any orders yet.</p>
-                        <Link to="/" className="co-link-btn">Start shopping</Link>
-                    </div>
-                ) : (
-                    <div className="co-order-list">
-                        {orders.map((order) => {
-                            const count = order.items.reduce((s, it) => s + it.quantity, 0);
-                            return (
-                                <Link to={`/order/${order.id}`} className="co-order-row" key={order.id}>
-                                    <div>
-                                        <div className="co-order-id">Order #{order.id}</div>
-                                        <div className="co-order-meta">{formatDate(order.createdAt)} · {count} item{count > 1 ? "s" : ""}</div>
-                                    </div>
-                                    <div className="co-order-right">
-                                        <span className="co-status">{order.status}</span>
-                                        <span className="co-order-total">{formatPrice(order.amounts.total)}</span>
-                                    </div>
-                                </Link>
-                            );
-                        })}
-                    </div>
-                )}
+                {renderContent()}
             </div>
 
             <Footer />

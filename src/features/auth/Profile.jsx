@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "./authService";
 import { useAuth } from "./AuthContext";
+import { validateEmail } from "./validation";
 import "./Profile.css";
-
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Builds up to two uppercase initials from a name, falling back to the email. */
 function getInitials(name, email) {
@@ -43,9 +42,9 @@ export default function Profile() {
     const trimmedName = fullName.trim();
     const normalizedEmail = email.toLowerCase().trim();
 
+    const emailError = validateEmail(normalizedEmail);
     if (!trimmedName) errors.fullName = "Display name is required";
-    if (!normalizedEmail) errors.email = "Email is required";
-    else if (!emailRegex.test(normalizedEmail)) errors.email = "Invalid email format";
+    if (emailError) errors.email = emailError;
 
     setInfoErrors(errors);
     if (Object.keys(errors).length > 0) return;

@@ -8,6 +8,11 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import "./BookDetail.css";
 
+// Giá từ API là số lớn, chia 1000 để hiển thị.
+function formatPrice(price) {
+    return typeof price === "number" ? `$${(price / 1000).toFixed(2)}` : price;
+}
+
 export default function BookDetail() {
     const { id } = useParams();
     const [book, setBook] = useState(null);
@@ -58,7 +63,23 @@ export default function BookDetail() {
         );
     }
 
-    const displayPrice = typeof book.price === 'number' ? `$${(book.price / 1000).toFixed(2)}` : book.price;
+    const displayPrice = formatPrice(book.price);
+
+    const handleAddToCart = () => {
+        if (!user) {
+            navigate("/login");
+        } else {
+            addToCart({ ...book, quantity: qty });
+        }
+    };
+
+    const handleBuyNow = () => {
+        if (!user) {
+            navigate("/login");
+        } else {
+            navigate("/checkout", { state: { buyNow: { ...book, quantity: qty } } });
+        }
+    };
 
     // Giới hạn độ tuổi: chỉ chặn khi user đã đăng nhập và chưa đủ tuổi.
     const minAge = book.age || 0;
@@ -155,20 +176,8 @@ export default function BookDetail() {
                             <div className="bd-qty-val">{qty}</div>
                             <button className="bd-qty-btn" onClick={() => setQty(q => q + 1)}>+</button>
                         </div>
-                        <button className="bd-btn-cart" disabled={isRestricted} onClick={() => {
-                            if (!user) {
-                                navigate('/login');
-                            } else {
-                                addToCart({ ...book, quantity: qty });
-                            }
-                        }}>Add to Cart</button>
-                        <button className="bd-btn-buy" disabled={isRestricted} onClick={() => {
-                            if (!user) {
-                                navigate('/login');
-                            } else {
-                                navigate('/checkout', { state: { buyNow: { ...book, quantity: qty } } });
-                            }
-                        }}>Buy Now</button>
+                        <button className="bd-btn-cart" disabled={isRestricted} onClick={handleAddToCart}>Add to Cart</button>
+                        <button className="bd-btn-buy" disabled={isRestricted} onClick={handleBuyNow}>Buy Now</button>
                     </div>
                     {isRestricted && (
                         <div className="bd-age-block" role="alert">
@@ -259,7 +268,7 @@ export default function BookDetail() {
                             <div className="bd-related-book-title">{relBook.title}</div>
                             <div className="bd-related-author">{relBook.author}</div>
                             <div className="bd-related-price">
-                                {typeof relBook.price === 'number' ? `$${(relBook.price / 1000).toFixed(2)}` : relBook.price}
+                                {formatPrice(relBook.price)}
                             </div>
                         </div>
                     ))}
